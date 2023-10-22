@@ -8,10 +8,16 @@ import {
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 
+import logoImg from "../../assets/images/logo.png";
+import titleImg from "../../assets/images/title.png";
+
 export const Top: FC = memo(() => {
   return (
     <>
-      <header>Moderate Roullet</header>
+      <header>
+        <img src={logoImg} alt="Application logo image" />
+        <img src={titleImg} alt="Application title image" />
+      </header>
       <div>
         <div>
           <canvas>Canvas not supported.</canvas>
