@@ -14,9 +14,19 @@ import titleImg from "../../assets/images/title.png";
 export const Top: FC = memo(() => {
   return (
     <>
-      <header>
-        <img src={logoImg} alt="Application logo image" />
-        <img src={titleImg} alt="Application title image" />
+      <header className="bg-stone-300 h-16">
+        <div className="flex items-center h-full cursor-pointer">
+          <img
+            src={logoImg}
+            alt="Application logo image"
+            className="w-14 h-14 ml-4"
+          />
+          <img
+            src={titleImg}
+            alt="Application title image"
+            className="h-8 w-60 ml-4"
+          />
+        </div>
       </header>
       <div>
         <div>
@@ -62,7 +72,11 @@ export const Top: FC = memo(() => {
           </div>
         </div>
       </div>
-      <footer>&copy; 2023 Moderate Roullet. All rights reserved</footer>
+      <footer className="fixed bottom-0 bg-stone-300 h-14 w-full flex justify-center items-center">
+        <div className="text-white">
+          &copy; 2023 Moderate Roullet. All rights reserved
+        </div>
+      </footer>
     </>
   );
 });
