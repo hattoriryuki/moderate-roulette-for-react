@@ -23,7 +23,7 @@ export const Header: FC = memo(() => {
         </div>
         <FontAwesomeIcon
           icon={faBars}
-          className="text-3xl text-white mr-9 cursor-pointer"
+          className="text-3xl text-white mr-4 md:mr-9 cursor-pointer"
         />
       </div>
     </header>

@@ -13,13 +13,11 @@ import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
 export const Top: FC = memo(() => {
   return (
     <>
-      <div className="h-[calc(100vh_-_120px)] flex justify-around items-center">
-        <div>
-          <canvas className="w-[500px] h-[500px] border">
-            Canvas not supported.
-          </canvas>
-        </div>
-        <div className="flex flex-col h-[500px] w-2/5">
+      <div className="flex flex-col md:flex-row h-[calc(100vh_-_120px)] justify-around items-center">
+        <canvas className="md:w-[500px] w-[350px] md:h-[500px] h-[350px] border">
+          Canvas not supported.
+        </canvas>
+        <div className="flex flex-col h-[500px] w-[90%] md:w-2/5">
           <form action="" className="w-full">
             <input
               type="text"
