@@ -1,10 +1,13 @@
-import React from 'react';
+import React from "react";
+
+import { Top } from "./components/pages/Top";
+import { DefaultLayout } from "./components/templates/DefaultLayout";
 
 function App() {
   return (
-    <div className="border border-gray-400 rounded-2xl p-2 m-2 flex justify-around items-center">
-      <p className="text-sky-400">トップページです</p>
-    </div>
+    <DefaultLayout>
+      <Top />
+    </DefaultLayout>
   );
 }
 
