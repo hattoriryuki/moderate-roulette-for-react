@@ -1,10 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import { Top } from './components/pages/Top';
+import { Top } from "./components/pages/Top";
+import { DefaultLayout } from "./components/templates/DefaultLayout";
 
 function App() {
   return (
-    <Top />
+    <DefaultLayout>
+      <Top />
+    </DefaultLayout>
   );
 }
 
