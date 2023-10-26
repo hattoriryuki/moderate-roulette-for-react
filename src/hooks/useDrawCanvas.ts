@@ -1,27 +1,36 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
   const data = ["red", "blue", "yellow", "green"];
   const ctx = canvas && canvas.getContext("2d");
   let radius = 220;
 
-  const drawRoullet = useCallback(() => {
-    let degPart = 90;
-    let angle = 0;
-
+  useEffect(() => {
     if (!ctx) return;
     ctx.translate(canvas.width / 2, canvas.height / 2);
-    for (let i = 0; i < 4; i++) {
-      let startAngle = ((360 - angle) * Math.PI) / 180;
-      let endAngle = ((360 - (angle + degPart)) * Math.PI) / 180;
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.fillStyle = data[i];
-      ctx.arc(0, 0, radius, startAngle, endAngle, true);
-      ctx.fill();
-      angle += degPart;
-    }
   }, [canvas]);
+
+  const drawRoullet = useCallback(
+    (angleCounter: number) => {
+      let degPart = 90;
+      let angle = 0;
+      let sumAngle = 0;
+
+      if (!ctx) return;
+      for (let i = 0; i < 4; i++) {
+        angle = sumAngle + angleCounter;
+        let startAngle = ((360 - angle) * Math.PI) / 180;
+        let endAngle = ((360 - (angle + degPart)) * Math.PI) / 180;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.fillStyle = data[i];
+        ctx.arc(0, 0, radius, startAngle, endAngle, true);
+        ctx.fill();
+        sumAngle += degPart;
+      }
+    },
+    [canvas]
+  );
 
   const drawTriangle = useCallback(() => {
     if (!ctx) return;

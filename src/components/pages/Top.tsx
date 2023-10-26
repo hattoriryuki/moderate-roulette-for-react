@@ -19,9 +19,17 @@ export const Top: FC = memo(() => {
 
   useEffect(() => {
     setCanvasObject(document.querySelector("canvas"));
-    drawRoullet();
+    drawRoullet(0);
     drawTriangle();
   }, [canvasObject]);
+
+  const onClickStart = () => {
+    let angleCounter = 0;
+    const timer = setInterval(() => {
+      angleCounter += 26;
+      drawRoullet(angleCounter);
+    }, 10);
+  };
 
   return (
     <>
@@ -57,7 +65,7 @@ export const Top: FC = memo(() => {
               <button className="text-gray-600 ml-2">
                 <FontAwesomeIcon icon={faArrowRotateRight} />
               </button>
-              <button className="text-green-400 ml-2">
+              <button className="text-green-400 ml-2" onClick={onClickStart}>
                 <FontAwesomeIcon icon={faCirclePlay} />
               </button>
             </div>
