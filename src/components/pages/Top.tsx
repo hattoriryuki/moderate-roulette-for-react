@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useRef } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
@@ -9,43 +9,23 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
+import { useDrawCanvas } from "../../hooks/useDrawCanvas";
 
 export const Top: FC = memo(() => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const canvas = canvasRef.current;
-  const ctx = canvas && canvas.getContext("2d");
-  const data = ["red", "blue", "yellow", "green"];
-
-  const drawRoullet = () => {
-    let degPart = 90;
-    let radius = 220;
-    let angle = 0;
-
-    if (!canvas || !ctx) return;
-    for (let i = 0; i < 4; i++) {
-      let startAngle = ((360 - angle) * Math.PI) / 180;
-      let endAngle = ((360 - (angle + degPart)) * Math.PI) / 180;
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.fillStyle = data[i];
-      ctx.arc(0, 0, radius, startAngle, endAngle, true);
-      ctx.fill();
-      angle += degPart;
-    }
-  };
+  const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
+    null
+  );
+  const { drawRoullet } = useDrawCanvas(canvasObject);
 
   useEffect(() => {
-    if (canvas && ctx) {
-      ctx.translate(canvas.width / 2, canvas.height / 2);
-      drawRoullet();
-    }
-  }, [canvas, ctx]);
+    setCanvasObject(document.querySelector("canvas"));
+    drawRoullet();
+  }, [canvasObject]);
 
   return (
     <>
       <div className="flex flex-col md:flex-row h-[calc(100vh_-_120px)] justify-around items-center">
         <canvas
-          ref={canvasRef}
           className="md:w-[500px] w-[350px] md:h-[500px] h-[350px] border"
           width="500px"
           height="500px"
