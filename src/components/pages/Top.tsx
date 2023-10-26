@@ -15,11 +15,12 @@ export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
     null
   );
-  const { drawRoullet } = useDrawCanvas(canvasObject);
+  const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
 
   useEffect(() => {
     setCanvasObject(document.querySelector("canvas"));
     drawRoullet();
+    drawTriangle();
   }, [canvasObject]);
 
   return (
