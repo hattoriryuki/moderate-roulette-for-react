@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 
 export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
-  const data = ["red", "blue", "yellow", "green"];
+  const labelData = ["red", "blue", "yellow", "green"];
   const ctx = canvas && canvas.getContext("2d");
   let radius = 220;
 
@@ -17,17 +17,17 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
       let sumAngle = 0;
 
       if (!ctx) return;
-      for (let i = 0; i < 4; i++) {
+      labelData.map((data) => {
         angle = sumAngle + angleCounter;
         let startAngle = ((360 - angle) * Math.PI) / 180;
         let endAngle = ((360 - (angle + degPart)) * Math.PI) / 180;
         ctx.beginPath();
         ctx.moveTo(0, 0);
-        ctx.fillStyle = data[i];
+        ctx.fillStyle = data;
         ctx.arc(0, 0, radius, startAngle, endAngle, true);
         ctx.fill();
         sumAngle += degPart;
-      }
+      });
     },
     [canvas]
   );
