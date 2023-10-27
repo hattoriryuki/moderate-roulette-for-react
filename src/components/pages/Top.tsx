@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
@@ -9,12 +9,36 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
+import { useDrawCanvas } from "../../hooks/useDrawCanvas";
 
 export const Top: FC = memo(() => {
+  const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
+    null
+  );
+  const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
+
+  useEffect(() => {
+    setCanvasObject(document.querySelector("canvas"));
+    drawRoullet(0);
+    drawTriangle();
+  }, [canvasObject]);
+
+  const onClickStart = () => {
+    let angleCounter = 0;
+    const timer = setInterval(() => {
+      angleCounter += 26;
+      drawRoullet(angleCounter);
+    }, 10);
+  };
+
   return (
     <>
       <div className="flex flex-col md:flex-row h-[calc(100vh_-_120px)] justify-around items-center">
-        <canvas className="md:w-[500px] w-[350px] md:h-[500px] h-[350px] border">
+        <canvas
+          className="md:w-[500px] w-[350px] md:h-[500px] h-[350px] border"
+          width="500px"
+          height="500px"
+        >
           Canvas not supported.
         </canvas>
         <div className="flex flex-col h-[500px] w-[90%] md:w-2/5">
@@ -41,7 +65,7 @@ export const Top: FC = memo(() => {
               <button className="text-gray-600 ml-2">
                 <FontAwesomeIcon icon={faArrowRotateRight} />
               </button>
-              <button className="text-green-400 ml-2">
+              <button className="text-green-400 ml-2" onClick={onClickStart}>
                 <FontAwesomeIcon icon={faCirclePlay} />
               </button>
             </div>
