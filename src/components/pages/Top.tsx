@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
@@ -8,14 +8,19 @@ import {
   faCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
+import {
+  faCirclePlay,
+  faCircleStop,
+} from "@fortawesome/free-regular-svg-icons";
 import { useDrawCanvas } from "../../hooks/useDrawCanvas";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
     null
   );
+  const [isRunning, setIsRunnig] = useState(false);
   const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
+  const intervalRef = useRef<NodeJS.Timer>();
 
   useEffect(() => {
     setCanvasObject(document.querySelector("canvas"));
@@ -24,11 +29,17 @@ export const Top: FC = memo(() => {
   }, [canvasObject]);
 
   const onClickStart = () => {
+    setIsRunnig(true);
     let angleCounter = 0;
-    const timer = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       angleCounter += 26;
       drawRoullet(angleCounter);
     }, 10);
+  };
+
+  const onClickStop = () => {
+    setIsRunnig(false);
+    clearInterval(intervalRef.current);
   };
 
   return (
@@ -65,9 +76,15 @@ export const Top: FC = memo(() => {
               <button className="text-gray-600 ml-2">
                 <FontAwesomeIcon icon={faArrowRotateRight} />
               </button>
-              <button className="text-green-400 ml-2" onClick={onClickStart}>
-                <FontAwesomeIcon icon={faCirclePlay} />
-              </button>
+              {isRunning ? (
+                <button className="text-red-400 ml-2" onClick={onClickStop}>
+                  <FontAwesomeIcon icon={faCircleStop} />
+                </button>
+              ) : (
+                <button className="text-green-400 ml-2" onClick={onClickStart}>
+                  <FontAwesomeIcon icon={faCirclePlay} />
+                </button>
+              )}
             </div>
           </div>
           <div className="border border-[#4A5568] basis-[80%] p-5">
