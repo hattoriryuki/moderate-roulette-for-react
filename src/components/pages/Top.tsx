@@ -1,11 +1,19 @@
-import { FC, memo, useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  FC,
+  memo,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faArrowRotateRight } from "@fortawesome/free-solid-svg-icons";
-
 import {
   faCirclePlay,
   faCircleStop,
 } from "@fortawesome/free-regular-svg-icons";
+
 import { useDrawCanvas } from "../../hooks/useDrawCanvas";
 import { RoulletItem } from "../molucules/RoulletItem";
 
@@ -14,7 +22,14 @@ export const Top: FC = memo(() => {
     null
   );
   const [isRunning, setIsRunnig] = useState(false);
-  const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
+  const [itemText, setItemText] = useState("");
+  const [items, setItems] = useState([
+    { text: "ラベル１", color: "red" },
+    { text: "ラベル２", color: "blue" },
+    { text: "ラベル３", color: "yellow" },
+    { text: "ラベル４", color: "lime" },
+  ]);
+  const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject, items);
   const intervalRef = useRef<NodeJS.Timer>();
 
   useEffect(() => {
@@ -36,6 +51,16 @@ export const Top: FC = memo(() => {
     setIsRunnig(false);
     clearInterval(intervalRef.current);
   };
+
+  const onClickAdd = () => {
+    const newItems = [...items, { text: itemText, color: "pink" }];
+    setItems(newItems);
+    setItemText("");
+  };
+
+  const onChangeLabel = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setItemText(e.target.value);
+  }, []);
 
   return (
     <>
@@ -61,11 +86,13 @@ export const Top: FC = memo(() => {
               <input
                 type="text"
                 placeholder="Item"
+                value={itemText}
+                onChange={onChangeLabel}
                 className="outline-none border-b border-[#4A5568] w-full"
               />
             </form>
             <div className="flex text-4xl">
-              <button className="text-yellow-400 ml-2">
+              <button className="text-yellow-400 ml-2" onClick={onClickAdd}>
                 <FontAwesomeIcon icon={faPlus} />
               </button>
               <button
@@ -88,8 +115,10 @@ export const Top: FC = memo(() => {
             </div>
           </div>
           <div className="border border-[#4A5568] basis-[80%] p-5">
-            <RoulletItem label="ラベル１" color="text-red-500" />
-            <RoulletItem label="ラベル２" color="text-blue-500" />
+            {items.map((item) => {
+              console.log(item);
+              return <RoulletItem label={item.text} color={item.color} />;
+            })}
           </div>
         </div>
       </div>

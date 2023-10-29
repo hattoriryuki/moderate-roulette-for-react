@@ -13,7 +13,11 @@ export const RoulletItem: FC<Props> = memo((props) => {
   return (
     <div className="flex mb-2 items-center justify-between">
       <div className="flex">
-        <FontAwesomeIcon icon={faCircle} className={`${color} text-2xl`} />
+        <FontAwesomeIcon
+          icon={faCircle}
+          className="text-2xl"
+          style={{ color: `${color}` }}
+        />
         <p className="ml-2">{label}</p>
       </div>
       <div>
