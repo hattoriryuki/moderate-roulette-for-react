@@ -73,7 +73,12 @@ export const Top: FC = memo(() => {
               <button className="text-yellow-400 ml-2">
                 <FontAwesomeIcon icon={faPlus} />
               </button>
-              <button className="text-gray-600 ml-2">
+              <button
+                className="text-gray-600 ml-2"
+                onClick={() => {
+                  drawRoullet(0);
+                }}
+              >
                 <FontAwesomeIcon icon={faArrowRotateRight} />
               </button>
               {isRunning ? (
