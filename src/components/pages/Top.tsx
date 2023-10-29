@@ -1,18 +1,13 @@
 import { FC, memo, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlus,
-  faArrowRotateRight,
-  faPen,
-  faTrashCan,
-  faCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faArrowRotateRight } from "@fortawesome/free-solid-svg-icons";
 
 import {
   faCirclePlay,
   faCircleStop,
 } from "@fortawesome/free-regular-svg-icons";
 import { useDrawCanvas } from "../../hooks/useDrawCanvas";
+import { RoulletItem } from "../molucules/RoulletItem";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
@@ -93,40 +88,8 @@ export const Top: FC = memo(() => {
             </div>
           </div>
           <div className="border border-[#4A5568] basis-[80%] p-5">
-            <div className="flex mb-2 items-center justify-between">
-              <div className="flex">
-                <FontAwesomeIcon
-                  icon={faCircle}
-                  className="text-red-500 text-2xl"
-                />
-                <p className="ml-2">ラベル１</p>
-              </div>
-              <div>
-                <button className="text-gray-400 text-xl">
-                  <FontAwesomeIcon icon={faPen} />
-                </button>
-                <button className="text-red-400 text-xl ml-4">
-                  <FontAwesomeIcon icon={faTrashCan} />
-                </button>
-              </div>
-            </div>
-            <div className="flex mb-2 items-center justify-between">
-              <div className="flex">
-                <FontAwesomeIcon
-                  icon={faCircle}
-                  className="text-blue-500 text-2xl"
-                />
-                <p className="ml-2">ラベル２</p>
-              </div>
-              <div>
-                <button className="text-gray-400 text-xl">
-                  <FontAwesomeIcon icon={faPen} />
-                </button>
-                <button className="text-red-400 text-xl ml-4">
-                  <FontAwesomeIcon icon={faTrashCan} />
-                </button>
-              </div>
-            </div>
+            <RoulletItem label="ラベル１" color="text-red-500" />
+            <RoulletItem label="ラベル２" color="text-blue-500" />
           </div>
         </div>
       </div>
