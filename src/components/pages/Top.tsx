@@ -47,7 +47,7 @@ export const Top: FC = memo(() => {
       angleCounter += 26;
       drawRoullet({ angleCounter, items });
     }, 10);
-  }, [drawRoullet]);
+  }, [drawRoullet, items]);
 
   const onClickStop = useCallback(() => {
     setIsRunnig(false);
