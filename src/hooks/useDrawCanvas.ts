@@ -1,7 +1,13 @@
 import { useCallback, useEffect } from "react";
 
+import { Item } from "../types/item";
+
+type Props = {
+  angleCounter: number;
+  items: Item[];
+};
+
 export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
-  const labelData = ["red", "blue", "yellow", "green"];
   const ctx = canvas && canvas.getContext("2d");
   let radius = 220;
 
@@ -11,19 +17,20 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
   }, [canvas]);
 
   const drawRoullet = useCallback(
-    (angleCounter: number) => {
-      let degPart = 90;
+    (props: Props) => {
+      const { angleCounter, items } = props;
+      let degPart = 360 / items.length;
       let angle = 0;
       let sumAngle = 0;
 
       if (!ctx) return;
-      labelData.map((data) => {
-        angle = sumAngle + angleCounter;
+      items.map((data) => {
+        angle = sumAngle + angleCounter + 90;
         let startAngle = ((360 - angle) * Math.PI) / 180;
         let endAngle = ((360 - (angle + degPart)) * Math.PI) / 180;
         ctx.beginPath();
         ctx.moveTo(0, 0);
-        ctx.fillStyle = data;
+        if (data.color) ctx.fillStyle = data.color;
         ctx.arc(0, 0, radius, startAngle, endAngle, true);
         ctx.fill();
         sumAngle += degPart;
