@@ -36,7 +36,7 @@ export const Top: FC = memo(() => {
 
   useEffect(() => {
     setCanvasObject(document.querySelector("canvas"));
-    drawRoullet({angleCounter: 0, items});
+    drawRoullet({ angleCounter: 0, items });
     drawTriangle();
   }, [canvasObject]);
 
@@ -45,7 +45,7 @@ export const Top: FC = memo(() => {
     let angleCounter = 0;
     intervalRef.current = setInterval(() => {
       angleCounter += 26;
-      drawRoullet({angleCounter, items});
+      drawRoullet({ angleCounter, items });
     }, 10);
   }, [drawRoullet]);
 
@@ -59,7 +59,7 @@ export const Top: FC = memo(() => {
     const newItems = [...items, { text: itemText, color: itemColor }];
     setItems(newItems);
     setItemText("");
-    drawRoullet({angleCounter: 0, items: newItems});
+    drawRoullet({ angleCounter: 0, items: newItems });
   }, [itemText]);
 
   const onChangeLabel = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -98,11 +98,11 @@ export const Top: FC = memo(() => {
             <div className="flex text-4xl">
               <button className="text-yellow-400 ml-2" onClick={onClickAdd}>
                 <FontAwesomeIcon icon={faPlus} />
-              </button> 
+              </button>
               <button
                 className="text-gray-600 ml-2"
                 onClick={() => {
-                  drawRoullet({angleCounter: 0, items});
+                  drawRoullet({ angleCounter: 0, items });
                 }}
               >
                 <FontAwesomeIcon icon={faArrowRotateRight} />
@@ -119,8 +119,10 @@ export const Top: FC = memo(() => {
             </div>
           </div>
           <div className="border border-[#4A5568] basis-[80%] p-5">
-            {items.map((item) => {
-              return <RoulletItem label={item.text} color={item.color} />;
+            {items.map((item, index) => {
+              return (
+                <RoulletItem key={index} label={item.text} color={item.color} />
+              );
             })}
           </div>
         </div>
