@@ -112,7 +112,13 @@ export const Top: FC = memo(() => {
                   <FontAwesomeIcon icon={faCircleStop} />
                 </button>
               ) : (
-                <button className="text-green-400 ml-2" onClick={onClickStart}>
+                <button
+                  className={`text-${
+                    (items.length <= 1 && "gray") || "green"
+                  }-400 ml-2`}
+                  onClick={onClickStart}
+                  disabled={items.length <= 1 && true}
+                >
                   <FontAwesomeIcon icon={faCirclePlay} />
                 </button>
               )}
