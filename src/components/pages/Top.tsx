@@ -55,6 +55,10 @@ export const Top: FC = memo(() => {
   }, []);
 
   const onClickAdd = useCallback(() => {
+    if (!itemText) {
+      alert("アイテムを入力してください");
+      return;
+    }
     getRandomColor();
     const newItems = [...items, { text: itemText, color: itemColor }];
     setItems(newItems);
