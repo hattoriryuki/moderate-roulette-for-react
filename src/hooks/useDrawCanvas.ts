@@ -1,9 +1,6 @@
 import { useCallback, useEffect } from "react";
 
-export const useDrawCanvas = (
-  canvas: HTMLCanvasElement | null,
-  labelData: {text: string | null, color: string | null}[]
-) => {
+export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
   const ctx = canvas && canvas.getContext("2d");
   let radius = 220;
 
@@ -13,8 +10,11 @@ export const useDrawCanvas = (
   }, [canvas]);
 
   const drawRoullet = useCallback(
-    (angleCounter: number) => {
-      let degPart = 90;
+    (
+      angleCounter: number,
+      labelData: { text: string | null; color: string | null }[]
+    ) => {
+      let degPart = 360 / labelData.length;
       let angle = 0;
       let sumAngle = 0;
 

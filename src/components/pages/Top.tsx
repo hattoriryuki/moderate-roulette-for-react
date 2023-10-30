@@ -30,13 +30,13 @@ export const Top: FC = memo(() => {
     { text: "ラベル３", color: "yellow" },
     { text: "ラベル４", color: "lime" },
   ]);
-  const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject, items);
+  const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
   const { getRandomColor, itemColor } = useRandomColor();
   const intervalRef = useRef<NodeJS.Timer>();
 
   useEffect(() => {
     setCanvasObject(document.querySelector("canvas"));
-    drawRoullet(0);
+    drawRoullet(0, items);
     drawTriangle();
   }, [canvasObject]);
 
@@ -45,7 +45,7 @@ export const Top: FC = memo(() => {
     let angleCounter = 0;
     intervalRef.current = setInterval(() => {
       angleCounter += 26;
-      drawRoullet(angleCounter);
+      drawRoullet(angleCounter, items);
     }, 10);
   }, [drawRoullet]);
 
@@ -59,6 +59,7 @@ export const Top: FC = memo(() => {
     const newItems = [...items, { text: itemText, color: itemColor }];
     setItems(newItems);
     setItemText("");
+    drawRoullet(0, newItems);
   }, [itemText]);
 
   const onChangeLabel = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -101,7 +102,7 @@ export const Top: FC = memo(() => {
               <button
                 className="text-gray-600 ml-2"
                 onClick={() => {
-                  drawRoullet(0);
+                  drawRoullet(0, items);
                 }}
               >
                 <FontAwesomeIcon icon={faArrowRotateRight} />
