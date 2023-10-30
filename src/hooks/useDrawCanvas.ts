@@ -20,7 +20,7 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
 
       if (!ctx) return;
       labelData.map((data) => {
-        angle = sumAngle + angleCounter;
+        angle = sumAngle + angleCounter + 90;
         let startAngle = ((360 - angle) * Math.PI) / 180;
         let endAngle = ((360 - (angle + degPart)) * Math.PI) / 180;
         ctx.beginPath();
