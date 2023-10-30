@@ -20,7 +20,6 @@ export const useRandomColor = () => {
         num = 90 * (Math.random() * 2);
         break;
       default:
-        num = 0;
         break;
     }
     setItemColor(`hsl(${num}, 100%, 50%)`);
