@@ -1,6 +1,7 @@
 import {
   ChangeEvent,
   FC,
+  FormEvent,
   memo,
   useCallback,
   useEffect,
@@ -66,6 +67,11 @@ export const Top: FC = memo(() => {
     setItemText(e.target.value);
   }, []);
 
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onClickAdd();
+  };
+
   return (
     <>
       <div className="flex flex-col md:flex-row h-[calc(100vh_-_120px)] justify-around items-center">
@@ -86,7 +92,7 @@ export const Top: FC = memo(() => {
           </form>
           <div className="text-gray-400 text-sm">※入力は任意です</div>
           <div className="flex basis-[20%] items-center">
-            <form action="" className="w-full">
+            <form action="" className="w-full" onSubmit={onSubmit}>
               <input
                 type="text"
                 placeholder="Item"
