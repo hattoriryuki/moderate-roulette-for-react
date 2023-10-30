@@ -70,7 +70,7 @@ export const Top: FC = memo(() => {
     <>
       <div className="flex flex-col md:flex-row h-[calc(100vh_-_120px)] justify-around items-center">
         <canvas
-          className="md:w-[500px] w-[350px] md:h-[500px] h-[350px] border"
+          className="md:w-[500px] w-[350px] md:h-[500px] h-[350px]"
           width="500px"
           height="500px"
         >
@@ -118,7 +118,7 @@ export const Top: FC = memo(() => {
               )}
             </div>
           </div>
-          <div className="border border-[#4A5568] basis-[80%] p-5">
+          <div className="border border-[#4A5568] basis-[80%] p-5 overflow-y-scroll">
             {items.map((item, index) => {
               return (
                 <RoulletItem key={index} label={item.text} color={item.color} />
