@@ -16,6 +16,7 @@ import {
 
 import { useDrawCanvas } from "../../hooks/useDrawCanvas";
 import { RoulletItem } from "../molucules/RoulletItem";
+import { useRandomColor } from "../../hooks/useRandomColor";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
@@ -30,6 +31,7 @@ export const Top: FC = memo(() => {
     { text: "ラベル４", color: "lime" },
   ]);
   const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject, items);
+  const { getRandomColor, itemColor } = useRandomColor();
   const intervalRef = useRef<NodeJS.Timer>();
 
   useEffect(() => {
@@ -38,25 +40,26 @@ export const Top: FC = memo(() => {
     drawTriangle();
   }, [canvasObject]);
 
-  const onClickStart = () => {
+  const onClickStart = useCallback(() => {
     setIsRunnig(true);
     let angleCounter = 0;
     intervalRef.current = setInterval(() => {
       angleCounter += 26;
       drawRoullet(angleCounter);
     }, 10);
-  };
+  }, [drawRoullet]);
 
-  const onClickStop = () => {
+  const onClickStop = useCallback(() => {
     setIsRunnig(false);
     clearInterval(intervalRef.current);
-  };
+  }, []);
 
-  const onClickAdd = () => {
-    const newItems = [...items, { text: itemText, color: "pink" }];
+  const onClickAdd = useCallback(() => {
+    getRandomColor();
+    const newItems = [...items, { text: itemText, color: itemColor }];
     setItems(newItems);
     setItemText("");
-  };
+  }, [itemText]);
 
   const onChangeLabel = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setItemText(e.target.value);
@@ -116,7 +119,6 @@ export const Top: FC = memo(() => {
           </div>
           <div className="border border-[#4A5568] basis-[80%] p-5">
             {items.map((item) => {
-              console.log(item);
               return <RoulletItem label={item.text} color={item.color} />;
             })}
           </div>
