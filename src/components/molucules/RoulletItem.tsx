@@ -2,13 +2,10 @@ import { FC, memo } from "react";
 import { faCircle, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-type Props = {
-  label: string;
-  color: string;
-};
+import { Item } from "../../types/item";
 
-export const RoulletItem: FC<Props> = memo((props) => {
-  const { label, color } = props;
+export const RoulletItem: FC<Item> = memo((props) => {
+  const { text, color } = props;
 
   return (
     <div className="flex mb-2 items-center justify-between">
@@ -18,7 +15,7 @@ export const RoulletItem: FC<Props> = memo((props) => {
           className="text-2xl"
           style={{ color: `${color}` }}
         />
-        <p className="ml-2">{label}</p>
+        <p className="ml-2">{text}</p>
       </div>
       <div>
         <button className="text-gray-400 text-xl">

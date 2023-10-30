@@ -1,9 +1,6 @@
 import { useCallback, useEffect } from "react";
 
-type Item = {
-  text: string | null;
-  color: string | null;
-};
+import { Item } from "../types/item";
 
 type Props = {
   angleCounter: number;

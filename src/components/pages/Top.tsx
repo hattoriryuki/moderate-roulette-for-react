@@ -17,6 +17,7 @@ import {
 import { useDrawCanvas } from "../../hooks/useDrawCanvas";
 import { RoulletItem } from "../molucules/RoulletItem";
 import { useRandomColor } from "../../hooks/useRandomColor";
+import { Item } from "../../types/item";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
@@ -24,12 +25,7 @@ export const Top: FC = memo(() => {
   );
   const [isRunning, setIsRunnig] = useState(false);
   const [itemText, setItemText] = useState("");
-  const [items, setItems] = useState([
-    { text: "ラベル１", color: "red" },
-    { text: "ラベル２", color: "blue" },
-    { text: "ラベル３", color: "yellow" },
-    { text: "ラベル４", color: "lime" },
-  ]);
+  const [items, setItems] = useState<Item[]>([]);
   const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
   const { getRandomColor, itemColor } = useRandomColor();
   const intervalRef = useRef<NodeJS.Timer>();
@@ -125,7 +121,7 @@ export const Top: FC = memo(() => {
           <div className="border border-[#4A5568] basis-[80%] p-5 overflow-y-scroll">
             {items.map((item, index) => {
               return (
-                <RoulletItem key={index} label={item.text} color={item.color} />
+                <RoulletItem key={index} text={item.text} color={item.color} />
               );
             })}
           </div>
