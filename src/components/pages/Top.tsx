@@ -19,6 +19,7 @@ import { useDrawCanvas } from "../../hooks/useDrawCanvas";
 import { RoulletItem } from "../molucules/RoulletItem";
 import { useRandomColor } from "../../hooks/useRandomColor";
 import { Item } from "../../types/item";
+import { Canvas } from "../atoms/Canvas";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
@@ -75,13 +76,7 @@ export const Top: FC = memo(() => {
   return (
     <>
       <div className="flex flex-col md:flex-row h-[calc(100vh_-_120px)] justify-around items-center">
-        <canvas
-          className="md:w-[500px] w-[350px] md:h-[500px] h-[350px]"
-          width="500px"
-          height="500px"
-        >
-          Canvas not supported.
-        </canvas>
+        <Canvas />
         <div className="flex flex-col h-[500px] w-[90%] md:w-2/5">
           <form action="" className="w-full">
             <input
