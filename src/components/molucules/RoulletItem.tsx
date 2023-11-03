@@ -32,21 +32,33 @@ export const RoulletItem: FC<Props> = memo((props) => {
     setEditedText(e.target.value);
   }, []);
 
-  const onClickSubmit = useCallback((index: number) => {
-    if (!editedText) {
-      alert("編集後のテキストを入力してください");
-      return;
-    }
-    setEditTarget(null);
-    const new_items = [...items];
-    new_items[index].text = editedText;
-    setItems(new_items);
-  }, [editedText]);
+  const onClickSubmit = useCallback(
+    (index: number) => {
+      if (!editedText) {
+        alert("編集後のテキストを入力してください");
+        return;
+      }
+      setEditTarget(null);
+      const new_items = [...items];
+      new_items[index].text = editedText;
+      setItems(new_items);
+    },
+    [editedText]
+  );
 
-  const onSubmit = useCallback((e: FormEvent<HTMLFormElement>, index: number) => {
-    e.preventDefault();
-    onClickSubmit(index);
-  }, []);
+  const onSubmit = useCallback(
+    (e: FormEvent<HTMLFormElement>, index: number) => {
+      e.preventDefault();
+      onClickSubmit(index);
+    },
+    []
+  );
+
+  const onClickDelete = useCallback((index: number) => {
+    const new_items = [...items];
+    new_items.splice(index, 1);
+    setItems(new_items);
+  }, [items]);
 
   return (
     <>
@@ -97,7 +109,12 @@ export const RoulletItem: FC<Props> = memo((props) => {
                   <FontAwesomeIcon icon={faPen} />
                 </button>
               )}
-              <button className="text-red-400 text-xl ml-4">
+              <button
+                className="text-red-400 text-xl ml-4"
+                onClick={() => {
+                  onClickDelete(index);
+                }}
+              >
                 <FontAwesomeIcon icon={faTrashCan} />
               </button>
             </div>
