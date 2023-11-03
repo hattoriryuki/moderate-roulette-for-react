@@ -25,6 +25,10 @@ export const RoulletItem: FC<Props> = memo((props) => {
   }, []);
 
   const onClickSubmit = (index: number) => {
+    if (!editedText) {
+      alert("編集後のテキストを入力してください");
+      return;
+    }
     setEditTarget(null);
     const new_items = [...items];
     new_items[index].text = editedText;
