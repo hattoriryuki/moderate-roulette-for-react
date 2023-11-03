@@ -1,4 +1,12 @@
-import { ChangeEvent, Dispatch, FC, memo, useCallback, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  FC,
+  FormEvent,
+  memo,
+  useCallback,
+  useState,
+} from "react";
 import { faCircle, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,6 +43,11 @@ export const RoulletItem: FC<Props> = memo((props) => {
     setItems(new_items);
   };
 
+  const onSubmit = (e: FormEvent<HTMLFormElement>, index: number) => {
+    e.preventDefault();
+    onClickSubmit(index);
+  };
+
   return (
     <>
       {items.map((item, index) => {
@@ -47,12 +60,19 @@ export const RoulletItem: FC<Props> = memo((props) => {
                 style={{ color: `${item.color}` }}
               />
               {index === editTarget ? (
-                <input
-                  type="text"
-                  value={editedText}
-                  className="border outline-none ml-2 w-[90%]"
-                  onChange={onChangeText}
-                />
+                <form
+                  className="w-[90%]"
+                  onSubmit={(e) => {
+                    onSubmit(e, index);
+                  }}
+                >
+                  <input
+                    type="text"
+                    value={editedText}
+                    className="border outline-none ml-2 w-full"
+                    onChange={onChangeText}
+                  />
+                </form>
               ) : (
                 <p className="ml-2">{item.text}</p>
               )}
