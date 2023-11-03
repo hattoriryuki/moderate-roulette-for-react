@@ -23,16 +23,16 @@ export const RoulletItem: FC<Props> = memo((props) => {
   const [editTarget, setEditTarget] = useState<number | null>();
   const [editedText, setEditedText] = useState("");
 
-  const onClickEdit = (text: string, index: number) => {
+  const onClickEdit = useCallback((text: string, index: number) => {
     setEditedText(text);
     setEditTarget(index);
-  };
+  }, []);
 
   const onChangeText = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setEditedText(e.target.value);
   }, []);
 
-  const onClickSubmit = (index: number) => {
+  const onClickSubmit = useCallback((index: number) => {
     if (!editedText) {
       alert("編集後のテキストを入力してください");
       return;
@@ -41,12 +41,12 @@ export const RoulletItem: FC<Props> = memo((props) => {
     const new_items = [...items];
     new_items[index].text = editedText;
     setItems(new_items);
-  };
+  }, [editedText]);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>, index: number) => {
+  const onSubmit = useCallback((e: FormEvent<HTMLFormElement>, index: number) => {
     e.preventDefault();
     onClickSubmit(index);
-  };
+  }, []);
 
   return (
     <>
