@@ -1,4 +1,4 @@
 export type Item = {
-  text: string | null;
+  text: string;
   color: string | null;
 };
