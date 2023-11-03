@@ -12,16 +12,19 @@ import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Item } from "../../types/item";
+import { useDrawCanvas } from "../../hooks/useDrawCanvas";
 
 type Props = {
   items: Item[];
   setItems: Dispatch<React.SetStateAction<Item[]>>;
+  canvas: HTMLCanvasElement | null;
 };
 
 export const RoulletItem: FC<Props> = memo((props) => {
-  const { items, setItems } = props;
+  const { items, setItems, canvas } = props;
   const [editTarget, setEditTarget] = useState<number | null>();
   const [editedText, setEditedText] = useState("");
+  const { drawRoullet, drawTriangle } = useDrawCanvas(canvas);
 
   const onClickEdit = useCallback((text: string, index: number) => {
     setEditedText(text);
@@ -54,11 +57,16 @@ export const RoulletItem: FC<Props> = memo((props) => {
     []
   );
 
-  const onClickDelete = useCallback((index: number) => {
-    const new_items = [...items];
-    new_items.splice(index, 1);
-    setItems(new_items);
-  }, [items]);
+  const onClickDelete = useCallback(
+    (index: number) => {
+      const new_items = [...items];
+      new_items.splice(index, 1);
+      setItems(new_items);
+      drawRoullet({ angleCounter: 0, items: new_items });
+      drawTriangle();
+    },
+    [items]
+  );
 
   return (
     <>

@@ -15,7 +15,7 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
 
   useEffect(() => {
     if (!ctx) return;
-    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.translate(canvas.width / 4, canvas.height / 4);
   }, [canvas]);
 
   const drawRoullet = useCallback(
