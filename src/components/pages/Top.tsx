@@ -126,7 +126,11 @@ export const Top: FC = memo(() => {
             </div>
           </div>
           <div className="border border-[#4A5568] basis-[80%] p-5 overflow-y-scroll">
-            <RoulletItem items={items} setItems={setItems} />
+            <RoulletItem
+              items={items}
+              setItems={setItems}
+              canvas={canvasObject}
+            />
           </div>
         </div>
       </div>
