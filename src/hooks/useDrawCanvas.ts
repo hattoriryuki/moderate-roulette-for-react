@@ -24,7 +24,7 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
       if (items.length < 1) {
         drawInitialRoullet({ radius: radius });
       } else {
-        let degPart = 360 / items.length;
+        let anglePart = 360 / items.length;
         let angle = 0;
         let sumAngle = 0;
 
@@ -32,13 +32,13 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
         items.map((data) => {
           angle = sumAngle + angleCounter + 90;
           let startAngle = ((360 - angle) * Math.PI) / 180;
-          let endAngle = ((360 - (angle + degPart)) * Math.PI) / 180;
+          let endAngle = ((360 - (angle + anglePart)) * Math.PI) / 180;
           ctx.beginPath();
           ctx.moveTo(0, 0);
           if (data.color) ctx.fillStyle = data.color;
           ctx.arc(0, 0, radius, startAngle, endAngle, true);
           ctx.fill();
-          sumAngle += degPart;
+          sumAngle += anglePart;
         });
       }
     },
