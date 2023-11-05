@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Item } from "../types/item";
 import { useDrawInitialRoullet } from "./useDrawInitialRoullet";
@@ -12,6 +12,7 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
   const ctx = canvas && canvas.getContext("2d");
   const { drawInitialRoullet } = useDrawInitialRoullet(canvas);
   let radius = 220;
+  let anglePart = 0;
 
   useEffect(() => {
     if (!ctx) return;
@@ -24,7 +25,7 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
       if (items.length < 1) {
         drawInitialRoullet({ radius: radius });
       } else {
-        let anglePart = 360 / items.length;
+        anglePart = 360 / items.length;
         let angle = 0;
         let sumAngle = 0;
 
@@ -56,5 +57,5 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
     ctx.fill();
   }, [canvas]);
 
-  return { drawRoullet, drawTriangle };
+  return { drawRoullet, drawTriangle, anglePart };
 };

@@ -20,6 +20,7 @@ import { RoulletItem } from "../molucules/RoulletItem";
 import { useRandomColor } from "../../hooks/useRandomColor";
 import { Item } from "../../types/item";
 import { Canvas } from "../atoms/Canvas";
+import { useGetJudgement } from "../../hooks/useGetJudgement";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
@@ -30,7 +31,9 @@ export const Top: FC = memo(() => {
   const [items, setItems] = useState<Item[]>([]);
   const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
   const { getRandomColor, itemColor } = useRandomColor();
+  const { getJudgement } = useGetJudgement();
   const intervalRef = useRef<NodeJS.Timer>();
+  const currentAngleRef = useRef<number>(0);
 
   useEffect(() => {
     setCanvasObject(document.querySelector("canvas"));
@@ -44,13 +47,19 @@ export const Top: FC = memo(() => {
     intervalRef.current = setInterval(() => {
       angleCounter += 26;
       drawRoullet({ angleCounter, items });
+      currentAngleRef.current = angleCounter % 360;
     }, 10);
   }, [drawRoullet, items]);
 
   const onClickStop = useCallback(() => {
     setIsRunnig(false);
     clearInterval(intervalRef.current);
-  }, []);
+    getJudgement({
+      currentAngle: currentAngleRef.current,
+      anglePart: 360 / items.length,
+      items,
+    });
+  }, [items]);
 
   const onClickAdd = useCallback(() => {
     if (!itemText) {
