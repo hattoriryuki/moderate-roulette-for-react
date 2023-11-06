@@ -77,10 +77,10 @@ export const Top: FC = memo(() => {
     setItemText(e.target.value);
   }, []);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onClickAdd();
-  };
+  }, [itemText]);
 
   return (
     <>
