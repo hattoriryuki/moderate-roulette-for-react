@@ -33,7 +33,7 @@ export const Top: FC = memo(() => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
   const { getRandomColor, itemColor } = useRandomColor();
-  const { getJudgement } = useGetJudgement();
+  const { getJudgement, resultRef } = useGetJudgement();
   const intervalRef = useRef<NodeJS.Timer>();
   const currentAngleRef = useRef<number>(0);
 
@@ -61,7 +61,7 @@ export const Top: FC = memo(() => {
       anglePart: 360 / items.length,
       items,
     });
-    setTimeout(() => {      
+    setTimeout(() => {
       setModalIsOpen(true);
     }, 800);
   }, [items]);
@@ -92,7 +92,7 @@ export const Top: FC = memo(() => {
 
   return (
     <>
-      <PrimaryModal flag={modalIsOpen} />
+      <PrimaryModal flag={modalIsOpen} result={resultRef} />
       <div className="flex flex-col md:flex-row h-[calc(100vh_-_120px)] justify-around items-center">
         <Canvas />
         <div className="flex flex-col h-[500px] w-[90%] md:w-2/5">

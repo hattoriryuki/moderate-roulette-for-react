@@ -1,10 +1,13 @@
-import { FC, memo, useEffect, useState } from "react";
+import { FC, MutableRefObject, memo, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
 
+import { Item } from "../../types/item";
+
 type Props = {
   flag: boolean;
+  result: MutableRefObject<Item | null>;
 };
 
 const customStyles = {
@@ -19,7 +22,7 @@ const customStyles = {
 };
 
 export const PrimaryModal: FC<Props> = memo((props) => {
-  const { flag } = props;
+  const { flag, result } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -36,7 +39,7 @@ export const PrimaryModal: FC<Props> = memo((props) => {
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>
       <div className="flex justify-between bg-green-300 px-2 h-7 items-center">
         <p>結果</p>
-        <button className="text-gray-500">
+        <button className="text-gray-500" onClick={closeModal}>
           <FontAwesomeIcon icon={faXmark} />
         </button>
       </div>
@@ -47,9 +50,9 @@ export const PrimaryModal: FC<Props> = memo((props) => {
             <FontAwesomeIcon
               icon={faCircle}
               className="text-2xl"
-              style={{ color: "red" }}
+              style={{ color: `${result.current?.color}` }}
             />
-            <div>アイテム１</div>
+            <div>{result.current?.text}</div>
           </div>
           <p className="absolute right-4">です</p>
         </div>

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import { Item } from "../types/item";
 
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const useGetJudgement = () => {
-  const [result, setResult] = useState<Item[]>([]);
+  const resultRef = useRef<Item | null>(null);
 
   const getJudgement = useCallback((props: Props) => {
     const { anglePart, currentAngle, items } = props;
@@ -20,10 +20,9 @@ export const useGetJudgement = () => {
         anglePart * index < currentAngle &&
         currentAngle < anglePart * (index + 1)
       ) {
-        setResult([{ text: item.text, color: item.color }]);
+        resultRef.current = { text: item.text, color: item.color };
       }
     });
   }, []);
-  console.log(result);
-  return { getJudgement };
+  return { getJudgement, resultRef };
 };
