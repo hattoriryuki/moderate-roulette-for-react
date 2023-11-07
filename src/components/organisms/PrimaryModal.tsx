@@ -1,4 +1,11 @@
-import { FC, MutableRefObject, memo, useEffect, useState } from "react";
+import {
+  FC,
+  MutableRefObject,
+  memo,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
@@ -18,6 +25,7 @@ const customStyles = {
     width: "30%",
     height: "30%",
     padding: 0,
+    boxShadow: "2px 8px 21px -2px #777777",
   },
 };
 
@@ -29,9 +37,9 @@ export const PrimaryModal: FC<Props> = memo((props) => {
     setIsOpen(flag);
   }, [flag]);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsOpen(false);
-  };
+  }, []);
 
   Modal.setAppElement("body");
 
@@ -46,10 +54,10 @@ export const PrimaryModal: FC<Props> = memo((props) => {
       <div className="p-4 h-[calc(100%_-_28px)]">
         <p>選ばれたのは...</p>
         <div className="flex justify-center items-center h-[calc(100%_-_28px)]">
-          <div className="flex items-center gap-2 text-xl">
+          <div className="flex items-center gap-2 text-2xl">
             <FontAwesomeIcon
               icon={faCircle}
-              className="text-2xl"
+              className="text-3xl"
               style={{ color: `${result.current?.color}` }}
             />
             <div>{result.current?.text}</div>
