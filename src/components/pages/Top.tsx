@@ -64,6 +64,7 @@ export const Top: FC = memo(() => {
     setTimeout(() => {
       setModalIsOpen(true);
     }, 800);
+    setModalIsOpen(false);
   }, [items]);
 
   const onClickAdd = useCallback(() => {
