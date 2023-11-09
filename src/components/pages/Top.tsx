@@ -97,13 +97,11 @@ export const Top: FC = memo(() => {
       <div className="flex flex-col md:flex-row h-[calc(100vh_-_120px)] justify-around items-center">
         <Canvas />
         <div className="flex flex-col h-[500px] w-[90%] md:w-2/5">
-          <form action="" className="w-full">
-            <input
-              type="text"
-              placeholder="Title"
-              className="outline-none border-b border-[#4A5568] w-full"
-            />
-          </form>
+          <input
+            type="text"
+            placeholder="Title"
+            className="outline-none border-b border-[#4A5568] w-full"
+          />
           <div className="text-gray-400 text-sm">※入力は任意です</div>
           <div className="flex basis-[20%] items-center">
             <form action="" className="w-full" onSubmit={onSubmit}>
