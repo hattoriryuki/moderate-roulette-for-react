@@ -54,7 +54,7 @@ export const RoulletItem: FC<Props> = memo((props) => {
       e.preventDefault();
       onClickSubmit(index);
     },
-    []
+    [editedText]
   );
 
   const onClickDelete = useCallback(

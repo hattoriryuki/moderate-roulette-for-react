@@ -20,6 +20,8 @@ import { RoulletItem } from "../molucules/RoulletItem";
 import { useRandomColor } from "../../hooks/useRandomColor";
 import { Item } from "../../types/item";
 import { Canvas } from "../atoms/Canvas";
+import { useGetJudgement } from "../../hooks/useGetJudgement";
+import { PrimaryModal } from "../organisms/PrimaryModal";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
@@ -28,9 +30,12 @@ export const Top: FC = memo(() => {
   const [isRunning, setIsRunnig] = useState(false);
   const [itemText, setItemText] = useState("");
   const [items, setItems] = useState<Item[]>([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
   const { getRandomColor, itemColor } = useRandomColor();
+  const { getJudgement, resultRef } = useGetJudgement();
   const intervalRef = useRef<NodeJS.Timer>();
+  const currentAngleRef = useRef<number>(0);
 
   useEffect(() => {
     setCanvasObject(document.querySelector("canvas"));
@@ -44,13 +49,23 @@ export const Top: FC = memo(() => {
     intervalRef.current = setInterval(() => {
       angleCounter += 26;
       drawRoullet({ angleCounter, items });
+      currentAngleRef.current = angleCounter % 360;
     }, 10);
   }, [drawRoullet, items]);
 
   const onClickStop = useCallback(() => {
     setIsRunnig(false);
     clearInterval(intervalRef.current);
-  }, []);
+    getJudgement({
+      currentAngle: currentAngleRef.current,
+      anglePart: 360 / items.length,
+      items,
+    });
+    setTimeout(() => {
+      setModalIsOpen(true);
+    }, 800);
+    setModalIsOpen(false);
+  }, [items]);
 
   const onClickAdd = useCallback(() => {
     if (!itemText) {
@@ -68,23 +83,25 @@ export const Top: FC = memo(() => {
     setItemText(e.target.value);
   }, []);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onClickAdd();
-  };
+  const onSubmit = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      onClickAdd();
+    },
+    [itemText]
+  );
 
   return (
     <>
+      <PrimaryModal flag={modalIsOpen} result={resultRef} />
       <div className="flex flex-col md:flex-row h-[calc(100vh_-_120px)] justify-around items-center">
         <Canvas />
         <div className="flex flex-col h-[500px] w-[90%] md:w-2/5">
-          <form action="" className="w-full">
-            <input
-              type="text"
-              placeholder="Title"
-              className="outline-none border-b border-[#4A5568] w-full"
-            />
-          </form>
+          <input
+            type="text"
+            placeholder="Title"
+            className="outline-none border-b border-[#4A5568] w-full"
+          />
           <div className="text-gray-400 text-sm">※入力は任意です</div>
           <div className="flex basis-[20%] items-center">
             <form action="" className="w-full" onSubmit={onSubmit}>
