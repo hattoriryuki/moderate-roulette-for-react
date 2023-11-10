@@ -15,6 +15,7 @@ import { Item } from "../../types/item";
 type Props = {
   flag: boolean;
   result: MutableRefObject<Item | null>;
+  title: string | null;
 };
 
 const customStyles = {
@@ -30,7 +31,7 @@ const customStyles = {
 };
 
 export const PrimaryModal: FC<Props> = memo((props) => {
-  const { flag, result } = props;
+  const { flag, result, title } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -52,7 +53,8 @@ export const PrimaryModal: FC<Props> = memo((props) => {
         </button>
       </div>
       <div className="p-4 h-[calc(100%_-_28px)]">
-        <p>選ばれたのは...</p>
+        {/* {<p>`${title}に`選ばれたのは...</p>} */}
+        <p>{title && `${title}に`}選ばれたのは...</p>
         <div className="flex justify-center items-center h-[calc(100%_-_28px)]">
           <div className="flex items-center gap-2 text-2xl">
             <FontAwesomeIcon
