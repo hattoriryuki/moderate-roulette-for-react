@@ -30,6 +30,7 @@ export const Top: FC = memo(() => {
   const [isRunning, setIsRunnig] = useState(false);
   const [itemText, setItemText] = useState("");
   const [items, setItems] = useState<Item[]>([]);
+  const [titleText, setTitleText] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
   const { getRandomColor, itemColor } = useRandomColor();
@@ -91,15 +92,21 @@ export const Top: FC = memo(() => {
     [itemText]
   );
 
+  const onChangeTitle = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setTitleText(e.target.value);
+  }, []);
+
   return (
     <>
-      <PrimaryModal flag={modalIsOpen} result={resultRef} />
+      <PrimaryModal flag={modalIsOpen} result={resultRef} title={titleText} />
       <div className="flex flex-col md:flex-row h-[calc(100vh_-_120px)] justify-around items-center">
         <Canvas />
         <div className="flex flex-col h-[500px] w-[90%] md:w-2/5">
           <input
             type="text"
             placeholder="Title"
+            value={titleText}
+            onChange={onChangeTitle}
             className="outline-none border-b border-[#4A5568] w-full"
           />
           <div className="text-gray-400 text-sm">※入力は任意です</div>
