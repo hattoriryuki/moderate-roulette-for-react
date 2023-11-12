@@ -6,7 +6,7 @@
 
 ### ▼サービス URL
 
-MVPリリース後、入力します
+https://moderate-roullet-for-react.web.app/
 
 ### ▼メインターゲット
 
