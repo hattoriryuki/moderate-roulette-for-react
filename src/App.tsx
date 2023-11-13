@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Top } from "./components/pages/Top";
 import { DefaultLayout } from "./components/templates/DefaultLayout";
 

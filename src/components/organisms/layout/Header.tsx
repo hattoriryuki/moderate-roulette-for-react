@@ -7,18 +7,18 @@ import titleImg from "../../../assets/images/title.png";
 
 export const Header: FC = memo(() => {
   return (
-    <header className="bg-stone-300 h-16">
+    <header className="bg-stone-300 h-12 md:h-16">
       <div className="flex justify-between items-center h-full">
         <div className="flex items-center h-full">
           <img
             src={logoImg}
             alt="Application logo image"
-            className="w-14 h-14 ml-4 cursor-pointer"
+            className="w-12 md:w-14 h-12 md:h-14 ml-4 cursor-pointer"
           />
           <img
             src={titleImg}
             alt="Application title image"
-            className="h-8 w-60 ml-4 cursor-pointer"
+            className="h-7 md:h-8 w-56 md:w-60 ml-4 cursor-pointer"
           />
         </div>
         <FontAwesomeIcon
