@@ -11,6 +11,7 @@ import { faCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
 
 import { Item } from "../../types/item";
+import { BreakPoint, useMediaQuery } from "../../hooks/useMediaQuery";
 
 type Props = {
   flag: boolean;
@@ -33,6 +34,14 @@ const customStyles = {
 export const PrimaryModal: FC<Props> = memo((props) => {
   const { flag, result, title } = props;
   const [isOpen, setIsOpen] = useState(false);
+  const isMobile = useMediaQuery(BreakPoint.mobile);
+
+  useEffect(() => {
+    if(isMobile) {
+      customStyles.content.width = "90%";
+      customStyles.content.height = "25%";
+    } 
+  }, []);
 
   useEffect(() => {
     setIsOpen(flag);
@@ -53,7 +62,6 @@ export const PrimaryModal: FC<Props> = memo((props) => {
         </button>
       </div>
       <div className="p-4 h-[calc(100%_-_28px)]">
-        {/* {<p>`${title}に`選ばれたのは...</p>} */}
         <p>{title && `${title}に`}選ばれたのは...</p>
         <div className="flex justify-center items-center h-[calc(100%_-_28px)]">
           <div className="flex items-center gap-2 text-2xl">

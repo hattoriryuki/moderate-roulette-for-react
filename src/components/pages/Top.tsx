@@ -99,9 +99,9 @@ export const Top: FC = memo(() => {
   return (
     <>
       <PrimaryModal flag={modalIsOpen} result={resultRef} title={titleText} />
-      <div className="flex flex-col md:flex-row h-[calc(100vh_-_120px)] justify-around items-center">
+      <div className="flex flex-col md:flex-row h-[700px] md:h-[calc(100vh_-_120px)] md:justify-around items-center overflow-y-scroll">
         <Canvas />
-        <div className="flex flex-col h-[500px] w-[90%] md:w-2/5">
+        <div className="flex flex-col h-full md:h-[500px] w-[90%] md:w-2/5">
           <input
             type="text"
             placeholder="Title"
@@ -149,7 +149,7 @@ export const Top: FC = memo(() => {
               )}
             </div>
           </div>
-          <div className="border border-[#4A5568] basis-[80%] p-5 overflow-y-scroll">
+          <div className="border border-[#4A5568] basis-[80%] p-5 mb-10 overflow-y-scroll max-h-[265px] md:max-h-none">
             <RoulletItem
               items={items}
               setItems={setItems}
