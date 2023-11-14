@@ -37,10 +37,10 @@ export const PrimaryModal: FC<Props> = memo((props) => {
   const isMobile = useMediaQuery(BreakPoint.mobile);
 
   useEffect(() => {
-    if(isMobile) {
+    if(isMobile.match) {
       customStyles.content.width = "90%";
       customStyles.content.height = "25%";
-    } 
+    }
   }, []);
 
   useEffect(() => {
