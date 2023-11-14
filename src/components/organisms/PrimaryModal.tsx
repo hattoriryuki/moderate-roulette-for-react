@@ -36,6 +36,9 @@ export const PrimaryModal: FC<Props> = memo((props) => {
   const { flag, result, title } = props;
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery(BreakPoint.mobile);
+  const shareURL = `http://twitter.com/share?url=https://moderate-roullet-for-react.web.app/
+  &text=${title ? title + "に" : "今回"}選ばれたのは、「 ${result.current?.text} 」でした！
+  &hashtags=ModerateRoullet`;
 
   useEffect(() => {
     if (isMobile.match) {
@@ -76,12 +79,12 @@ export const PrimaryModal: FC<Props> = memo((props) => {
           <p className="absolute right-4">です</p>
         </div>
         <div className="flex justify-end">
-          <button>
+          <a href={shareURL} target="_blank">
             <FontAwesomeIcon
               icon={faXTwitter}
               className="bg-black text-white text-2xl rounded-md p-1"
             />
-          </button>
+          </a>
         </div>
       </div>
     </Modal>
