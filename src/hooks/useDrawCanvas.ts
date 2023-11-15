@@ -17,7 +17,7 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
   let anglePart = 0;
 
   useEffect(() => {
-    if (isMobile) radius = 150;
+    if (isMobile.match) radius = 150;
   }, []);
 
   useEffect(() => {

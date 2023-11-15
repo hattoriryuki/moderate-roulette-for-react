@@ -8,6 +8,7 @@ import {
 } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import Modal from "react-modal";
 
 import { Item } from "../../types/item";
@@ -35,12 +36,15 @@ export const PrimaryModal: FC<Props> = memo((props) => {
   const { flag, result, title } = props;
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery(BreakPoint.mobile);
+  const shareURL = `http://twitter.com/share?url=https://moderate-roullet-for-react.web.app/
+  &text=${title ? title + "に" : "今回"}選ばれたのは、「 ${result.current?.text} 」でした！
+  &hashtags=ModerateRoullet`;
 
   useEffect(() => {
-    if(isMobile) {
+    if (isMobile.match) {
       customStyles.content.width = "90%";
       customStyles.content.height = "25%";
-    } 
+    }
   }, []);
 
   useEffect(() => {
@@ -61,7 +65,7 @@ export const PrimaryModal: FC<Props> = memo((props) => {
           <FontAwesomeIcon icon={faXmark} />
         </button>
       </div>
-      <div className="p-4 h-[calc(100%_-_28px)]">
+      <div className="p-4 h-[calc(100%_-_28px)] flex flex-col justify-around">
         <p>{title && `${title}に`}選ばれたのは...</p>
         <div className="flex justify-center items-center h-[calc(100%_-_28px)]">
           <div className="flex items-center gap-2 text-2xl">
@@ -73,6 +77,14 @@ export const PrimaryModal: FC<Props> = memo((props) => {
             <div>{result.current?.text}</div>
           </div>
           <p className="absolute right-4">です</p>
+        </div>
+        <div className="flex justify-end">
+          <a href={shareURL} target="_blank">
+            <FontAwesomeIcon
+              icon={faXTwitter}
+              className="bg-black text-white text-2xl rounded-md p-1"
+            />
+          </a>
         </div>
       </div>
     </Modal>
