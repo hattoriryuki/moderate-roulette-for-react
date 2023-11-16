@@ -22,6 +22,7 @@ import { Item } from "../../types/item";
 import { Canvas } from "../atoms/Canvas";
 import { useGetJudgement } from "../../hooks/useGetJudgement";
 import { PrimaryModal } from "../organisms/PrimaryModal";
+import { HamburgerMenu } from "../organisms/HamburgerMenu";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
@@ -99,6 +100,7 @@ export const Top: FC = memo(() => {
   return (
     <>
       <PrimaryModal flag={modalIsOpen} result={resultRef} title={titleText} />
+      <HamburgerMenu />
       <div className="flex flex-col md:flex-row h-[700px] md:h-[calc(100vh_-_120px)] md:justify-around items-center overflow-y-scroll">
         <Canvas />
         <div className="flex flex-col h-full md:h-[500px] w-[90%] md:w-2/5">
