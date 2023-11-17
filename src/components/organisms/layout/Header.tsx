@@ -32,6 +32,10 @@ export const Header: FC = memo(() => {
           onClick={onClickOpen}
         />
       </div>
+      <div
+        className="absolute h-[100vh] w-full"
+        onClick={openMenu ? onClickOpen : undefined}
+      ></div>
       <HamburgerMenu isOpen={openMenu} />
     </header>
   );
