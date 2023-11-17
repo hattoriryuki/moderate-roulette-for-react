@@ -14,10 +14,10 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
           <div className="flex flex-col">
             <p className="text-sm text-[#0A2463] my-2 mx-4">Rules</p>
             <div className="flex flex-col text-[#2D3748]">
-              <a href="" className="py-1.5 px-3">
+              <a href="" className="py-1.5 px-3 hover:bg-gray-200">
                 利用規約
               </a>
-              <a href="" className="py-1.5 px-3">
+              <a href="" className="py-1.5 px-3 hover:bg-gray-200">
                 プライバシーポリシー
               </a>
             </div>
@@ -25,18 +25,18 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
           <div>
             <p className="text-sm text-[#0A2463] my-2 mx-4">Creactor</p>
             <div className="flex flex-col text-[#2D3748]">
-              <a href="" className="py-1.5 px-3">
+              <a href="" className="py-1.5 px-3 hover:bg-gray-200">
                 X-Twitter
               </a>
-              <a href="" className="py-1.5 px-3">
+              <a href="" className="py-1.5 px-3 hover:bg-gray-200">
                 GitHub
               </a>
             </div>
           </div>
           <div>
             <p className="text-sm text-[#0A2463] my-2 mx-4">Share</p>
-            <div className="text-[#2D3748]">
-              <a href="" className="py-1.5 px-3">
+            <div className="flex flex-col text-[#2D3748]">
+              <a href="" className="py-1.5 px-3 hover:bg-gray-200">
                 共有する
               </a>
             </div>
