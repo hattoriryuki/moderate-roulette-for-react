@@ -1,4 +1,5 @@
 import { FC, memo } from "react";
+import { SecondaryModal } from "./SecondaryModal";
 
 type Props = {
   isOpen: boolean;
@@ -34,6 +35,7 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
 
   return (
     <>
+      <SecondaryModal />
       <div
         className={`absolute right-5 bg-white divide-y border w-56 rounded-md py-2 shadow-md ${
           isOpen || "hidden"
