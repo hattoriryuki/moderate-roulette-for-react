@@ -53,7 +53,10 @@ export const SecondaryModal: FC<Props> = memo((props) => {
           {children}
         </div>
         <footer className="fixed bottom-0 right-0 py-4 px-6">
-          <button className="px-4 bg-[#EDF2F7] leading-10 rounded-md">
+          <button
+            className="px-4 bg-[#EDF2F7] leading-10 rounded-md"
+            onClick={closeModal}
+          >
             Close
           </button>
         </footer>
