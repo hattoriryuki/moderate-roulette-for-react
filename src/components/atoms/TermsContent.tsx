@@ -175,11 +175,17 @@ export const TermsContent: FC = memo(() => {
         <p className="mt-8 mb-2 text-[#0a2463] text-lg font-bold">
           第11条（お問い合わせ）
         </p>
-        <p>
+        <div>
           本サービスに関するお問い合わせは、下記TwitterアカウントのDMまでお願いいたします。
           <br />
-          @ryuki_runteq_27
-        </p>
+          <a
+            href="https://twitter.com/messages/compose?recipient_id=1457235129190223872"
+            target="_blank"
+            className="text-teal-500 hover:underline"
+          >
+            @ryuki_runteq_27
+          </a>
+        </div>
         <br />
         <p>以上</p>
       </div>
