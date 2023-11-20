@@ -33,7 +33,7 @@ export const Header: FC = memo(() => {
         />
       </div>
       <div
-        className="absolute h-[100vh] w-full"
+        className={`absolute h-[100vh] w-full ${openMenu || "hidden"}`}
         onClick={openMenu ? onClickMenu : undefined}
       ></div>
       <HamburgerMenu isOpen={openMenu} onClose={onClickMenu} />
