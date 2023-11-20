@@ -22,7 +22,6 @@ import { Item } from "../../types/item";
 import { Canvas } from "../atoms/Canvas";
 import { useGetJudgement } from "../../hooks/useGetJudgement";
 import { PrimaryModal } from "../organisms/PrimaryModal";
-import { HamburgerMenu } from "../organisms/HamburgerMenu";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(

@@ -1,15 +1,24 @@
-import { FC, memo } from "react";
+import { FC, memo, useState } from "react";
+
 import { SecondaryModal } from "./SecondaryModal";
 import { TermsContent } from "../atoms/TermsContent";
 
 type Props = {
   isOpen: boolean;
+  onClose: () => void;
 };
 
 export const HamburgerMenu: FC<Props> = memo((props) => {
-  const { isOpen } = props;
+  const { isOpen, onClose } = props;
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const onClickTerms = () => {
-    console.log("Terms");
+    setModalIsOpen(!modalIsOpen);
+    onClose();
+  };
+
+  const onCloseTerms = () => {
+    setModalIsOpen(false);
   };
 
   const labelData = [
@@ -36,7 +45,7 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
 
   return (
     <>
-      <SecondaryModal>
+      <SecondaryModal flag={modalIsOpen} onClose={onCloseTerms}>
         <TermsContent />
       </SecondaryModal>
       <div
