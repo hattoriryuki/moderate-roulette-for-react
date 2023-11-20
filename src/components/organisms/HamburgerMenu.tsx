@@ -1,4 +1,4 @@
-import { FC, memo, useState } from "react";
+import { FC, memo, useCallback, useState } from "react";
 
 import { SecondaryModal } from "./SecondaryModal";
 import { TermsContent } from "../atoms/TermsContent";
@@ -12,14 +12,14 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
   const { isOpen, onClose } = props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const onClickTerms = () => {
+  const onClickTerms = useCallback(() => {
     setModalIsOpen(!modalIsOpen);
     onClose();
-  };
+  }, [isOpen]);
 
-  const onCloseTerms = () => {
+  const onCloseTerms = useCallback(() => {
     setModalIsOpen(false);
-  };
+  }, []);
 
   const labelData = [
     {

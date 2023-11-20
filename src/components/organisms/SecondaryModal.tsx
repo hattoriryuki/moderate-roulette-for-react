@@ -1,4 +1,4 @@
-import { FC, ReactNode, memo, useEffect, useState } from "react";
+import { FC, ReactNode, memo, useCallback, useEffect, useState } from "react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "react-modal";
@@ -30,10 +30,10 @@ export const SecondaryModal: FC<Props> = memo((props) => {
     setIsOpen(flag);
   }, [flag]);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsOpen(false);
     onClose();
-  };
+  }, [isOpen]);
 
   Modal.setAppElement("body");
 
