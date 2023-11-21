@@ -3,6 +3,8 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "react-modal";
 
+import { BreakPoint, useMediaQuery } from "../../hooks/useMediaQuery";
+
 const customStyles = {
   content: {
     top: "50%",
@@ -25,6 +27,13 @@ type Props = {
 export const SecondaryModal: FC<Props> = memo((props) => {
   const { children, flag, onClose } = props;
   const [isOpen, setIsOpen] = useState(false);
+  const isMobile = useMediaQuery(BreakPoint.mobile);
+
+  useEffect(() => {
+    if (isMobile.match) {
+      customStyles.content.width = "100%";
+    }
+  }, []);
 
   useEffect(() => {
     setIsOpen(flag);
@@ -39,7 +48,7 @@ export const SecondaryModal: FC<Props> = memo((props) => {
 
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>
-      <div>
+      <div className="h-[100%]">
         <header className="flex py-4 px-6">
           <p className="text-2xl text-[#0a2463] font-semibold">利用規約</p>
           <button
@@ -49,10 +58,10 @@ export const SecondaryModal: FC<Props> = memo((props) => {
             <FontAwesomeIcon icon={faXmark} />
           </button>
         </header>
-        <div className="overflow-y-scroll max-h-[460px] py-2 px-6 ml-4">
+        <div className="overflow-y-scroll max-h-[calc(100%-8.5rem)] py-2 px-6 ml-4">
           {children}
         </div>
-        <footer className="fixed bottom-0 right-0 py-4 px-6">
+        <footer className="flex justify-end items-center py-4 px-6">
           <button
             className="px-4 bg-[#EDF2F7] leading-10 rounded-md hover:bg-[#E2E8F0] active:bg-[#CBD5E0]"
             onClick={closeModal}
