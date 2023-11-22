@@ -60,6 +60,7 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
         title="利用規約"
         flag={termsIsOpen}
         onClose={onCloseTerms}
+        height="80%"
       >
         <TermsContent />
       </SecondaryModal>
@@ -67,6 +68,7 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
         title="プライバシーポリシー"
         flag={privacyIsOpen}
         onClose={onClosePrivacy}
+        height="60%"
       >
         <PrivacyContent />
       </SecondaryModal>

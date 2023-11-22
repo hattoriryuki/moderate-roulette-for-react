@@ -23,10 +23,11 @@ type Props = {
   title: string;
   flag: boolean;
   onClose: () => void;
+  height: string;
 };
 
 export const SecondaryModal: FC<Props> = memo((props) => {
-  const { children, title, flag, onClose } = props;
+  const { children, title, flag, onClose, height } = props;
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery(BreakPoint.mobile);
 
@@ -38,6 +39,7 @@ export const SecondaryModal: FC<Props> = memo((props) => {
 
   useEffect(() => {
     setIsOpen(flag);
+    customStyles.content.height = height;
   }, [flag]);
 
   const closeModal = useCallback(() => {
