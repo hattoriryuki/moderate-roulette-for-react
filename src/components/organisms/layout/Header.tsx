@@ -1,11 +1,16 @@
-import { FC, memo } from "react";
+import { FC, memo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 import logoImg from "../../../assets/images/logo.png";
 import titleImg from "../../../assets/images/title.png";
+import { HamburgerMenu } from "../HamburgerMenu";
 
 export const Header: FC = memo(() => {
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const onClickMenu = () => setOpenMenu(!openMenu);
+
   return (
     <header className="bg-stone-300 h-12 md:h-16">
       <div className="flex justify-between items-center h-full">
@@ -24,8 +29,14 @@ export const Header: FC = memo(() => {
         <FontAwesomeIcon
           icon={faBars}
           className="text-3xl text-white mr-4 md:mr-9 cursor-pointer"
+          onClick={onClickMenu}
         />
       </div>
+      <div
+        className={`absolute h-[100vh] w-full ${openMenu || "hidden"}`}
+        onClick={openMenu ? onClickMenu : undefined}
+      ></div>
+      <HamburgerMenu isOpen={openMenu} onClose={onClickMenu} />
     </header>
   );
 });
