@@ -1,7 +1,7 @@
 import { FC, memo, useCallback, useState } from "react";
 
 import { SecondaryModal } from "./SecondaryModal";
-import { TermsContent } from "../atoms/TermsContent";
+import { TermsContent } from "../molucules/TermsContent";
 
 type Props = {
   isOpen: boolean;
