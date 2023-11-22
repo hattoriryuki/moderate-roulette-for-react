@@ -20,12 +20,13 @@ const customStyles = {
 
 type Props = {
   children: ReactNode;
+  title: string;
   flag: boolean;
   onClose: () => void;
 };
 
 export const SecondaryModal: FC<Props> = memo((props) => {
-  const { children, flag, onClose } = props;
+  const { children, title, flag, onClose } = props;
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery(BreakPoint.mobile);
 
@@ -50,7 +51,7 @@ export const SecondaryModal: FC<Props> = memo((props) => {
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>
       <div className="h-[100%]">
         <header className="flex py-4 px-6">
-          <p className="text-2xl text-[#0a2463] font-semibold">利用規約</p>
+          <p className="text-2xl text-[#0a2463] font-semibold">{title}</p>
           <button
             className="text-gray-500 text-xl ml-auto"
             onClick={closeModal}
