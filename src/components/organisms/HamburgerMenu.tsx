@@ -1,4 +1,11 @@
-import { FC, memo, useCallback, useState } from "react";
+import {
+  Dispatch,
+  FC,
+  SetStateAction,
+  memo,
+  useCallback,
+  useState,
+} from "react";
 
 import { SecondaryModal } from "./SecondaryModal";
 import { TermsContent } from "../molucules/TermsContent";
@@ -14,43 +21,52 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
   const [termsIsOpen, setTermsIsOpen] = useState(false);
   const [privacyIsOpen, setPrivacyIsOpen] = useState(false);
 
-  const onClickTerms = useCallback(() => {
-    setTermsIsOpen(!termsIsOpen);
-    onClose();
-  }, [isOpen]);
+  const onClickOpenModal = useCallback(
+    (flag: number) => {
+      const { isOpen, func } = chooseModal(flag);
+      func(!isOpen);
+      onClose();
+    },
+    [isOpen]
+  );
 
-  const onCloseTerms = useCallback(() => {
-    setTermsIsOpen(false);
+  const onCloseModal = useCallback((flag: number) => {
+    const { func } = chooseModal(flag);
+    func(false);
   }, []);
 
-  const onClickPrivacy = useCallback(() => {
-    setPrivacyIsOpen(!termsIsOpen);
-    onClose();
-  }, [isOpen]);
-
-  const onClosePrivacy = useCallback(() => {
-    setPrivacyIsOpen(false);
-  }, []);
+  const chooseModal = (flag: number) => {
+    let isOpen: boolean;
+    let func: Dispatch<SetStateAction<boolean>>;
+    if (flag === 1) {
+      isOpen = termsIsOpen;
+      func = setTermsIsOpen;
+    } else {
+      isOpen = privacyIsOpen;
+      func = setPrivacyIsOpen;
+    }
+    return { isOpen, func };
+  };
 
   const labelData = [
     {
       title: "Rules",
       label1: "利用規約",
-      link1: onClickTerms,
+      link1: onClickOpenModal,
       label2: "プライバシーポリシー",
-      link2: onClickPrivacy,
+      link2: onClickOpenModal,
     },
     {
       title: "Creator",
       label1: "X-Twitter",
-      link1: onClickTerms,
+      link1: onCloseModal,
       label2: "GitHub",
-      link2: onClickTerms,
+      link2: onCloseModal,
     },
     {
       title: "About",
       label1: "使い方",
-      link1: onClickTerms,
+      link1: onCloseModal,
     },
   ];
 
@@ -59,7 +75,10 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
       <SecondaryModal
         title="利用規約"
         flag={termsIsOpen}
-        onClose={onCloseTerms}
+        onClose={() => {
+          let flag = 1;
+          onCloseModal(flag);
+        }}
         height="80%"
       >
         <TermsContent />
@@ -67,7 +86,10 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
       <SecondaryModal
         title="プライバシーポリシー"
         flag={privacyIsOpen}
-        onClose={onClosePrivacy}
+        onClose={() => {
+          let flag = 2;
+          onCloseModal(flag);
+        }}
         height="60%"
       >
         <PrivacyContent />
@@ -84,14 +106,20 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
               <div className="flex flex-col text-[#2D3748]">
                 <button
                   className="py-1.5 px-3 hover:bg-gray-200 text-left"
-                  onClick={data.link1}
+                  onClick={() => {
+                    let flag = 1;
+                    data.link1(flag);
+                  }}
                 >
                   {data.label1}
                 </button>
                 {data.label2 && (
                   <button
                     className="py-1.5 px-3 hover:bg-gray-200 text-left"
-                    onClick={data.link2}
+                    onClick={() => {
+                      let flag = 2;
+                      data.link2(flag);
+                    }}
                   >
                     {data.label2}
                   </button>
