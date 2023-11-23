@@ -1,5 +1,7 @@
 import { ComponentProps, FC, memo, useCallback } from "react";
 
+import { ContactLink } from "../atoms/ContactLink";
+
 type Props = ComponentProps<"li">;
 
 const policyData = [
@@ -26,13 +28,7 @@ export const PrivacyContent: FC = memo(() => {
       <div className="my-2">
         本サービスに関するお問い合わせは、下記TwitterアカウントのDMまでお願いいたします。
         <br />
-        <a
-          href="https://twitter.com/messages/compose?recipient_id=1457235129190223872"
-          target="_blank"
-          className="text-teal-500 hover:underline"
-        >
-          @ryuki_runteq_27
-        </a>
+        <ContactLink label="@ryuki_runteq_27" />
       </div>
       <br />
       <p>以上</p>
