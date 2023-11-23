@@ -72,7 +72,7 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
       >
         <PrivacyContent />
       </SecondaryModal>
-      <div
+      <nav
         className={`absolute right-5 bg-white divide-y border w-56 rounded-md py-2 shadow-md ${
           isOpen || "hidden"
         }`}
@@ -100,7 +100,7 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
             </div>
           );
         })}
-      </div>
+      </nav>
     </>
   );
 });
