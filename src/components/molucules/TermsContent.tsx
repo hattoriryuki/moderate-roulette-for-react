@@ -1,6 +1,7 @@
 import { FC, memo } from "react";
 
 import { PrimaryText } from "../atoms/PrimaryText";
+import { ContactLink } from "../atoms/ContactLink";
 
 export const TermsContent: FC = memo(() => {
   return (
@@ -143,13 +144,7 @@ export const TermsContent: FC = memo(() => {
         <div>
           本サービスに関するお問い合わせは、下記TwitterアカウントのDMまでお願いいたします。
           <br />
-          <a
-            href="https://twitter.com/messages/compose?recipient_id=1457235129190223872"
-            target="_blank"
-            className="text-teal-500 hover:underline"
-          >
-            @ryuki_runteq_27
-          </a>
+          <ContactLink label="@ryuki_runteq_27" />
         </div>
         <br />
         <p>以上</p>
