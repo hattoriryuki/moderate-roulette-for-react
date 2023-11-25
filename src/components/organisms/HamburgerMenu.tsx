@@ -12,6 +12,7 @@ import { TermsContent } from "../molucules/TermsContent";
 import { PrivacyContent } from "../molucules/PrivacyContent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import { PrimaryLink } from "../atoms/PrimaryLink";
 
 type Props = {
   isOpen: boolean;
@@ -105,22 +106,14 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
         <div>
           <p className="text-sm text-[#0A2463] my-2 mx-4">Creator</p>
           <div className="flex flex-col text-[#2D3748]">
-            <a
-              className="flex items-center py-1.5 px-3 hover:bg-gray-200 text-left"
-              href="http://twitter.com/ryuki_runteq_27"
-              target="_blank"
-            >
+            <PrimaryLink url="http://twitter.com/ryuki_runteq_27">
               <FontAwesomeIcon icon={faXTwitter} />
               <p className="ml-2">X</p>
-            </a>
-            <a
-              className="flex items-center py-1.5 px-3 hover:bg-gray-200 text-left"
-              href="https://github.com/hattoriryuki"
-              target="_blank"
-            >
+            </PrimaryLink>
+            <PrimaryLink url="https://github.com/hattoriryuki">
               <FontAwesomeIcon icon={faGithub} />
               <p className="ml-2">GitHub</p>
-            </a>
+            </PrimaryLink>
           </div>
         </div>
         <div>
