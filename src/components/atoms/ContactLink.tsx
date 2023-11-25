@@ -1,11 +1,11 @@
-import { FC, memo } from "react";
+import { FC, ReactNode, memo } from "react";
 
 type Props = {
-  label: string;
+  children: ReactNode;
 };
 
 export const ContactLink: FC<Props> = memo((props) => {
-  const { label } = props;
+  const { children } = props;
 
   return (
     <a
@@ -13,7 +13,7 @@ export const ContactLink: FC<Props> = memo((props) => {
       target="_blank"
       className="text-teal-500 hover:underline"
     >
-      {label}
+      {children}
     </a>
   );
 });
