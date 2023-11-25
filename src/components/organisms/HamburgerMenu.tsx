@@ -13,6 +13,8 @@ import { PrivacyContent } from "../molucules/PrivacyContent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { PrimaryLink } from "../atoms/PrimaryLink";
+import { ContactLink } from "../atoms/ContactLink";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons"
 
 type Props = {
   isOpen: boolean;
@@ -117,11 +119,12 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
           </div>
         </div>
         <div>
-          <p className="text-sm text-[#0A2463] my-2 mx-4">About</p>
-          <div className="flex flex-col text-[#2D3748]">
-            <button className="py-1.5 px-3 hover:bg-gray-200 text-left">
-              使い方
-            </button>
+          <p className="text-sm text-[#0A2463] my-2 mx-4">Help</p>
+          <div className="text-[#2D3748] hover:bg-gray-200 hover:cursor-pointer">
+            <ContactLink className="flex items-center px-3 py-1.5">
+              <FontAwesomeIcon icon={faEnvelope} />
+              <p className="ml-2">お問い合せ</p>
+            </ContactLink>
           </div>
         </div>
       </nav>

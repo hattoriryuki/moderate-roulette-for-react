@@ -28,7 +28,7 @@ export const PrivacyContent: FC = memo(() => {
       <div className="my-2">
         本サービスに関するお問い合わせは、下記TwitterアカウントのDMまでお願いいたします。
         <br />
-        <ContactLink label="@ryuki_runteq_27" />
+        <ContactLink>@ryuki_runteq_27</ContactLink>
       </div>
       <br />
       <p>以上</p>
