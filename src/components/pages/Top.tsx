@@ -38,6 +38,8 @@ export const Top: FC = memo(() => {
   const intervalRef = useRef<NodeJS.Timer>();
   const currentAngleRef = useRef<number>(0);
 
+  let stopFlag = false;
+
   useEffect(() => {
     setCanvasObject(document.querySelector("canvas"));
     drawRoullet({ angleCounter: 0, items });
@@ -47,25 +49,34 @@ export const Top: FC = memo(() => {
   const onClickStart = useCallback(() => {
     setIsRunnig(true);
     let angleCounter = 0;
+    let count = 0;
     intervalRef.current = setInterval(() => {
       angleCounter += 26;
+      if (stopFlag) {
+        count++;
+        angleCounter -= count / 10;
+      }
       drawRoullet({ angleCounter, items });
       currentAngleRef.current = angleCounter % 360;
     }, 10);
   }, [drawRoullet, items]);
 
   const onClickStop = useCallback(() => {
-    setIsRunnig(false);
-    clearInterval(intervalRef.current);
-    getJudgement({
-      currentAngle: currentAngleRef.current,
-      anglePart: 360 / items.length,
-      items,
-    });
+    stopFlag = true;
     setTimeout(() => {
-      setModalIsOpen(true);
-    }, 800);
-    setModalIsOpen(false);
+      clearInterval(intervalRef.current);
+      getJudgement({
+        currentAngle: currentAngleRef.current,
+        anglePart: 360 / items.length,
+        items,
+      });
+      setTimeout(() => {
+        setModalIsOpen(true);
+      }, 800);
+      setModalIsOpen(false);
+      stopFlag = false;
+      setIsRunnig(false);
+    }, 2000);
   }, [items]);
 
   const onClickAdd = useCallback(() => {
