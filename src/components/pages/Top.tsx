@@ -5,7 +5,6 @@ import {
   memo,
   useCallback,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,9 +19,8 @@ import { RoulletItem } from "../molucules/RoulletItem";
 import { useRandomColor } from "../../hooks/useRandomColor";
 import { Item } from "../../types/item";
 import { Canvas } from "../atoms/Canvas";
-import { useGetJudgement } from "../../hooks/useGetJudgement";
 import { PrimaryModal } from "../organisms/PrimaryModal";
-import { useRunRoullet } from "../../hooks/useRunRoullet";
+import { useRunRoullet } from "../../hooks/useControlRoullet";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
@@ -33,14 +31,14 @@ export const Top: FC = memo(() => {
   const [items, setItems] = useState<Item[]>([]);
   const [titleText, setTitleText] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
   const { getRandomColor, itemColor } = useRandomColor();
-  const { getJudgement, resultRef } = useGetJudgement();
-  const { runRoullet, currentAngle } = useRunRoullet({ canvas: canvasObject, items });
-  const intervalRef = useRef<NodeJS.Timer>();
-  const currentAngleRef = useRef<number>(0);
-
-  let stopFlag = false;
+  const { runRoullet, stopRoullet, resultRef } = useRunRoullet({
+    canvas: canvasObject,
+    items,
+    setModalIsOpen,
+  });
 
   useEffect(() => {
     setCanvasObject(document.querySelector("canvas"));
@@ -50,27 +48,13 @@ export const Top: FC = memo(() => {
 
   const onClickStart = useCallback(() => {
     setIsRunnig(true);
-    intervalRef.current = runRoullet();
-    currentAngleRef.current = currentAngle;
-  }, [drawRoullet, items, currentAngle]);
+    runRoullet();
+  }, [runRoullet]);
 
   const onClickStop = useCallback(() => {
-    stopFlag = true;
-    setTimeout(() => {
-      clearInterval(intervalRef.current);
-      getJudgement({
-        currentAngle: currentAngleRef.current,
-        anglePart: 360 / items.length,
-        items,
-      });
-      setTimeout(() => {
-        setModalIsOpen(true);
-      }, 800);
-      setModalIsOpen(false);
-      stopFlag = false;
-      setIsRunnig(false);
-    }, 2000);
-  }, [items]);
+    stopRoullet();
+    setIsRunnig(false);
+  }, [stopRoullet]);
 
   const onClickAdd = useCallback(() => {
     if (!itemText) {
