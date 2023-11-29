@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-export const useRandomColor = () => {
+export const useGetRandomColor = () => {
   const [itemColor, setItemColor] = useState("hsl(200, 100%, 50%)");
   let colorCount = 0;
 

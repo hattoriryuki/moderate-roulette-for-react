@@ -16,7 +16,7 @@ import {
 
 import { useDrawCanvas } from "../../hooks/useDrawCanvas";
 import { RoulletItem } from "../molucules/RoulletItem";
-import { useRandomColor } from "../../hooks/useRandomColor";
+import { useGetRandomColor } from "../../hooks/useGetRandomColor";
 import { Item } from "../../types/item";
 import { Canvas } from "../atoms/Canvas";
 import { PrimaryModal } from "../organisms/PrimaryModal";
@@ -33,7 +33,7 @@ export const Top: FC = memo(() => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
-  const { getRandomColor, itemColor } = useRandomColor();
+  const { getRandomColor, itemColor } = useGetRandomColor();
   const { runRoullet, stopRoullet, resultRef } = useRunRoullet({
     canvas: canvasObject,
     items,
