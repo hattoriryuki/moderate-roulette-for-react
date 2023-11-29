@@ -16,11 +16,11 @@ import {
 
 import { useDrawCanvas } from "../../hooks/useDrawCanvas";
 import { RoulletItem } from "../molucules/RoulletItem";
-import { useGetRandomColor } from "../../hooks/useGetRandomColor";
 import { Item } from "../../types/item";
 import { Canvas } from "../atoms/Canvas";
 import { PrimaryModal } from "../organisms/PrimaryModal";
 import { useRunRoullet } from "../../hooks/useControlRoullet";
+import { useAddItem } from "../../hooks/useAddItem";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
@@ -33,7 +33,7 @@ export const Top: FC = memo(() => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
-  const { getRandomColor, itemColor } = useGetRandomColor();
+  const { addItem } = useAddItem({ items, setItems, drawRoullet });
   const { runRoullet, stopRoullet, resultRef } = useRunRoullet({
     canvas: canvasObject,
     items,
@@ -57,15 +57,8 @@ export const Top: FC = memo(() => {
   }, [stopRoullet]);
 
   const onClickAdd = useCallback(() => {
-    if (!itemText) {
-      alert("アイテムを入力してください");
-      return;
-    }
-    getRandomColor();
-    const newItems = [...items, { text: itemText, color: itemColor }];
-    setItems(newItems);
+    addItem(itemText);
     setItemText("");
-    drawRoullet({ angleCounter: 0, items: newItems });
   }, [itemText]);
 
   const onChangeLabel = useCallback((e: ChangeEvent<HTMLInputElement>) => {
