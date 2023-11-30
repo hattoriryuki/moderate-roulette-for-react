@@ -5,7 +5,6 @@ import {
   memo,
   useCallback,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,11 +16,12 @@ import {
 
 import { useDrawCanvas } from "../../hooks/useDrawCanvas";
 import { RoulletItem } from "../molucules/RoulletItem";
-import { useRandomColor } from "../../hooks/useRandomColor";
 import { Item } from "../../types/item";
 import { Canvas } from "../atoms/Canvas";
-import { useGetJudgement } from "../../hooks/useGetJudgement";
 import { PrimaryModal } from "../organisms/PrimaryModal";
+import { useRunRoullet } from "../../hooks/useControlRoullet";
+import { useAddItem } from "../../hooks/useAddItem";
+import { PrimaryInput } from "../atoms/PrimaryInput";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
@@ -32,11 +32,14 @@ export const Top: FC = memo(() => {
   const [items, setItems] = useState<Item[]>([]);
   const [titleText, setTitleText] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
-  const { getRandomColor, itemColor } = useRandomColor();
-  const { getJudgement, resultRef } = useGetJudgement();
-  const intervalRef = useRef<NodeJS.Timer>();
-  const currentAngleRef = useRef<number>(0);
+  const { addItem } = useAddItem({ items, setItems, drawRoullet });
+  const { runRoullet, stopRoullet, resultRef } = useRunRoullet({
+    canvas: canvasObject,
+    items,
+    setModalIsOpen,
+  });
 
   useEffect(() => {
     setCanvasObject(document.querySelector("canvas"));
@@ -46,41 +49,20 @@ export const Top: FC = memo(() => {
 
   const onClickStart = useCallback(() => {
     setIsRunnig(true);
-    let angleCounter = 0;
-    intervalRef.current = setInterval(() => {
-      angleCounter += 26;
-      drawRoullet({ angleCounter, items });
-      currentAngleRef.current = angleCounter % 360;
-    }, 10);
-  }, [drawRoullet, items]);
+    runRoullet();
+  }, [runRoullet]);
 
   const onClickStop = useCallback(() => {
+    stopRoullet();
     setIsRunnig(false);
-    clearInterval(intervalRef.current);
-    getJudgement({
-      currentAngle: currentAngleRef.current,
-      anglePart: 360 / items.length,
-      items,
-    });
-    setTimeout(() => {
-      setModalIsOpen(true);
-    }, 800);
-    setModalIsOpen(false);
-  }, [items]);
+  }, [stopRoullet]);
 
   const onClickAdd = useCallback(() => {
-    if (!itemText) {
-      alert("アイテムを入力してください");
-      return;
-    }
-    getRandomColor();
-    const newItems = [...items, { text: itemText, color: itemColor }];
-    setItems(newItems);
+    addItem(itemText);
     setItemText("");
-    drawRoullet({ angleCounter: 0, items: newItems });
   }, [itemText]);
 
-  const onChangeLabel = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeItem = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setItemText(e.target.value);
   }, []);
 
@@ -102,22 +84,18 @@ export const Top: FC = memo(() => {
       <div className="flex flex-col md:flex-row h-[700px] md:h-[calc(100vh_-_120px)] md:justify-around items-center overflow-y-scroll">
         <Canvas />
         <div className="flex flex-col h-full md:h-[500px] w-[90%] md:w-2/5">
-          <input
-            type="text"
+          <PrimaryInput
             placeholder="Title"
             value={titleText}
             onChange={onChangeTitle}
-            className="outline-none border-b border-[#4A5568] w-full"
           />
           <div className="text-gray-400 text-sm">※入力は任意です</div>
           <div className="flex basis-[20%] items-center">
             <form action="" className="w-full" onSubmit={onSubmit}>
-              <input
-                type="text"
+              <PrimaryInput
                 placeholder="Item"
                 value={itemText}
-                onChange={onChangeLabel}
-                className="outline-none border-b border-[#4A5568] w-full"
+                onChange={onChangeItem}
               />
             </form>
             <div className="flex text-4xl">
