@@ -21,6 +21,7 @@ import { Canvas } from "../atoms/Canvas";
 import { PrimaryModal } from "../organisms/PrimaryModal";
 import { useRunRoullet } from "../../hooks/useControlRoullet";
 import { useAddItem } from "../../hooks/useAddItem";
+import { PrimaryInput } from "../atoms/PrimaryInput";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
@@ -61,7 +62,7 @@ export const Top: FC = memo(() => {
     setItemText("");
   }, [itemText]);
 
-  const onChangeLabel = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeItem = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setItemText(e.target.value);
   }, []);
 
@@ -83,22 +84,18 @@ export const Top: FC = memo(() => {
       <div className="flex flex-col md:flex-row h-[700px] md:h-[calc(100vh_-_120px)] md:justify-around items-center overflow-y-scroll">
         <Canvas />
         <div className="flex flex-col h-full md:h-[500px] w-[90%] md:w-2/5">
-          <input
-            type="text"
+          <PrimaryInput
             placeholder="Title"
             value={titleText}
             onChange={onChangeTitle}
-            className="outline-none border-b border-[#4A5568] w-full"
           />
           <div className="text-gray-400 text-sm">※入力は任意です</div>
           <div className="flex basis-[20%] items-center">
             <form action="" className="w-full" onSubmit={onSubmit}>
-              <input
-                type="text"
+              <PrimaryInput
                 placeholder="Item"
                 value={itemText}
-                onChange={onChangeLabel}
-                className="outline-none border-b border-[#4A5568] w-full"
+                onChange={onChangeItem}
               />
             </form>
             <div className="flex text-4xl">
