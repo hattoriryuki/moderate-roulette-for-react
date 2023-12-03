@@ -12,6 +12,7 @@ type Props = {
   status: "submit" | "error" | "info";
   title: string;
   flag: boolean;
+  closeEvent: () => void;
 };
 
 type Status = {
@@ -20,7 +21,7 @@ type Status = {
 };
 
 export const Toast: FC<Props> = memo((props) => {
-  const { status, title, flag } = props;
+  const { status, title, flag, closeEvent } = props;
   const [toastStatus, setToastStatus] = useState<Status>({
     color: "",
     icon: faCircleCheck,
@@ -64,6 +65,7 @@ export const Toast: FC<Props> = memo((props) => {
       <div className="ms-3 text-mg font-normal text-white">{title}</div>
       <button
         className={`ms-auto -mx-1.5 -my-1.5 text-white hover:text-gray-600 rounded-lg p-1.5 hover:bg-${toastStatus.color}-500 flex items-center justify-center h-8 w-8`}
+        onClick={closeEvent}
       >
         <FontAwesomeIcon icon={faXmark} />
       </button>

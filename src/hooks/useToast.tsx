@@ -1,4 +1,11 @@
-import { ReactNode, createContext, memo, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  memo,
+  useCallback,
+  useContext,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 
 import { Toast } from "../components/organisms/Toast";
@@ -14,7 +21,9 @@ type ToastParams = {
   status: ToastStatus;
 };
 
-export const ToastContext = createContext(({status, title}: ToastParams) => {});
+export const ToastContext = createContext(
+  ({ status, title }: ToastParams) => {}
+);
 
 export const useToast = () => {
   return useContext(ToastContext);
@@ -26,18 +35,27 @@ export const ToastProvider = memo((props: Props) => {
   const [toastStatus, setToastStatus] = useState<ToastStatus>("submit");
   const [toastTitle, setToastTitle] = useState("");
 
-  const showToast = ({ status, title }: ToastParams) => {
-    setIsOpen(!isOpen);
+  const showToast = useCallback(({ status, title }: ToastParams) => {
+    setIsOpen(true);
     setToastStatus(status);
     setToastTitle(title);
-  };
+  }, []);
+
+  const onClickClose = useCallback(() => {
+    setIsOpen(false);
+  }, []);
 
   return (
     <ToastContext.Provider value={showToast}>
       {children}
       {createPortal(
         <div id="toast" className="absolute top-0 left-0 z-10">
-          <Toast status={toastStatus} title={toastTitle} flag={isOpen} />
+          <Toast
+            status={toastStatus}
+            title={toastTitle}
+            flag={isOpen}
+            closeEvent={onClickClose}
+          />
         </div>,
         document.body
       )}
