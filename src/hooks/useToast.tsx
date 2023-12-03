@@ -39,6 +39,9 @@ export const ToastProvider = memo((props: Props) => {
     setIsOpen(true);
     setToastStatus(status);
     setToastTitle(title);
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 2000);
   }, []);
 
   const onClickClose = useCallback(() => {
@@ -49,14 +52,12 @@ export const ToastProvider = memo((props: Props) => {
     <ToastContext.Provider value={showToast}>
       {children}
       {createPortal(
-        <div id="toast" className="absolute top-0 left-0 z-10">
-          <Toast
-            status={toastStatus}
-            title={toastTitle}
-            flag={isOpen}
-            closeEvent={onClickClose}
-          />
-        </div>,
+        <Toast
+          status={toastStatus}
+          title={toastTitle}
+          flag={isOpen}
+          closeEvent={onClickClose}
+        />,
         document.body
       )}
     </ToastContext.Provider>
