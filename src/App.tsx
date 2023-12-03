@@ -1,11 +1,14 @@
 import { Top } from "./components/pages/Top";
 import { DefaultLayout } from "./components/templates/DefaultLayout";
+import { ToastProvider } from "./hooks/useToast";
 
 function App() {
   return (
-    <DefaultLayout>
-      <Top />
-    </DefaultLayout>
+    <ToastProvider>
+      <DefaultLayout>
+        <Top />
+      </DefaultLayout>
+    </ToastProvider>
   );
 }
 

@@ -22,6 +22,7 @@ import { PrimaryModal } from "../organisms/PrimaryModal";
 import { useRunRoullet } from "../../hooks/useControlRoullet";
 import { useAddItem } from "../../hooks/useAddItem";
 import { PrimaryInput } from "../atoms/PrimaryInput";
+import { useToast } from "../../hooks/useToast";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
@@ -33,6 +34,7 @@ export const Top: FC = memo(() => {
   const [titleText, setTitleText] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const showToast = useToast();
   const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
   const { addItem } = useAddItem({ items, setItems, drawRoullet });
   const { runRoullet, stopRoullet, resultRef } = useRunRoullet({
@@ -80,6 +82,9 @@ export const Top: FC = memo(() => {
 
   return (
     <>
+      <button onClick={() => showToast({ status: "info", title: "Test" })}>
+        test
+      </button>
       <PrimaryModal flag={modalIsOpen} result={resultRef} title={titleText} />
       <div className="flex flex-col md:flex-row h-[700px] md:h-[calc(100vh_-_120px)] md:justify-around items-center overflow-y-scroll">
         <Canvas />
