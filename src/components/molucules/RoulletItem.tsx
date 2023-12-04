@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Item } from "../../types/item";
 import { useDrawCanvas } from "../../hooks/useDrawCanvas";
+import { useToast } from "../../hooks/useToast";
 
 type Props = {
   items: Item[];
@@ -25,6 +26,7 @@ export const RoulletItem: FC<Props> = memo((props) => {
   const [editTarget, setEditTarget] = useState<number | null>();
   const [editedText, setEditedText] = useState("");
   const { drawRoullet, drawTriangle } = useDrawCanvas(canvas);
+  const showToast = useToast();
 
   const onClickEdit = useCallback((text: string, index: number) => {
     setEditedText(text);
@@ -38,13 +40,17 @@ export const RoulletItem: FC<Props> = memo((props) => {
   const onClickSubmit = useCallback(
     (index: number) => {
       if (!editedText) {
-        alert("編集後のテキストを入力してください");
+        showToast({
+          status: "error",
+          title: "編集後のテキストを入力してください",
+        });
         return;
       }
       setEditTarget(null);
       const new_items = [...items];
       new_items[index].text = editedText;
       setItems(new_items);
+      showToast({ status: "submit", title: "編集が完了しました" });
     },
     [editedText]
   );
