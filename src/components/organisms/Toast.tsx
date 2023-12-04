@@ -54,21 +54,25 @@ export const Toast: FC<Props> = memo((props) => {
   }, [flag]);
 
   return (
-    <div
-      className={`flex items-center w-[300px] h-12 py-4 px-2 rounded-lg shadow bg-${
-        toastStatus.color
-      }-600 ${flag || "hidden"}`}
-    >
-      <div className="flex items-center justify-center w-8 h-8 text-white rounded-lg text-lg">
-        <FontAwesomeIcon icon={toastStatus.icon} />
-      </div>
-      <div className="ms-3 text-mg font-normal text-white">{title}</div>
-      <button
-        className={`ms-auto -mx-1.5 -my-1.5 text-white hover:text-gray-600 rounded-lg p-1.5 hover:bg-${toastStatus.color}-500 flex items-center justify-center h-8 w-8`}
-        onClick={closeEvent}
+    <div className="absolute top-2 left-1/2 translate-x-[-50%]">
+      <div
+        className={`flex items-center max-w-[500px] h-12 py-4 px-2 rounded-lg shadow transition-transform duration-500 ${
+          flag || "-translate-y-[100vh]"
+        } bg-${toastStatus.color}-600`}
       >
-        <FontAwesomeIcon icon={faXmark} />
-      </button>
+        <div className="flex items-center justify-center w-8 h-8 text-white rounded-lg text-lg">
+          <FontAwesomeIcon icon={toastStatus.icon} />
+        </div>
+        <div className="ms-3 text-mg font-normal text-white">{title}</div>
+        <button
+          className={`ms-auto -mx-1.5 -my-1.5 text-white hover:text-gray-600 rounded-lg p-1.5 hover:bg-${
+            toastStatus.color
+          }-500 flex items-center justify-center h-8 w-8`}
+          onClick={closeEvent}
+        >
+          <FontAwesomeIcon icon={faXmark} />
+        </button>
+      </div>
     </div>
   );
 });

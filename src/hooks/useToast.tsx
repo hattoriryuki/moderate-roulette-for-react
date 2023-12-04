@@ -41,7 +41,7 @@ export const ToastProvider = memo((props: Props) => {
     setToastTitle(title);
     setTimeout(() => {
       setIsOpen(false);
-    }, 2000);
+    }, 2500);
   }, []);
 
   const onClickClose = useCallback(() => {
