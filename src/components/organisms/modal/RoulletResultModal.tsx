@@ -11,8 +11,8 @@ import { faCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import Modal from "react-modal";
 
-import { Item } from "../../types/item";
-import { BreakPoint, useMediaQuery } from "../../hooks/useMediaQuery";
+import { Item } from "../../../types/item";
+import { BreakPoint, useMediaQuery } from "../../../hooks/useMediaQuery";
 
 type Props = {
   flag: boolean;
@@ -32,12 +32,14 @@ const customStyles = {
   },
 };
 
-export const PrimaryModal: FC<Props> = memo((props) => {
+export const RoulletResultModal: FC<Props> = memo((props) => {
   const { flag, result, title } = props;
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery(BreakPoint.mobile);
   const shareURL = `http://twitter.com/share?url=https://moderate-roullet-for-react.web.app/
-  &text=${title ? title + "に" : "今回"}選ばれたのは、「 ${result.current?.text} 」でした！
+  &text=${title ? title + "に" : "今回"}選ばれたのは、「 ${
+    result.current?.text
+  } 」でした！
   &hashtags=ModerateRoullet`;
 
   useEffect(() => {

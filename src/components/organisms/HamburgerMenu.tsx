@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 
-import { SecondaryModal } from "./PrimaryModal";
+import { PrimaryModal } from "./modal/PrimaryModal";
 import { TermsContent } from "../molucules/TermsContent";
 import { PrivacyContent } from "../molucules/PrivacyContent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -55,7 +55,7 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
 
   return (
     <>
-      <SecondaryModal
+      <PrimaryModal
         title="利用規約"
         flag={termsIsOpen}
         onClose={() => {
@@ -65,8 +65,8 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
         height="80%"
       >
         <TermsContent />
-      </SecondaryModal>
-      <SecondaryModal
+      </PrimaryModal>
+      <PrimaryModal
         title="プライバシーポリシー"
         flag={privacyIsOpen}
         onClose={() => {
@@ -76,7 +76,7 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
         height="60%"
       >
         <PrivacyContent />
-      </SecondaryModal>
+      </PrimaryModal>
       <nav
         className={`absolute right-5 bg-white divide-y border w-56 rounded-md py-2 shadow-md ${
           isOpen || "hidden"
