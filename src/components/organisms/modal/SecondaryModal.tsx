@@ -1,4 +1,4 @@
-import { FC, memo, useState } from "react";
+import { FC, ReactNode, memo, useCallback, useState } from "react";
 import Modal from "react-modal";
 
 const customStyles = {
@@ -14,25 +14,25 @@ const customStyles = {
   },
 };
 
-export const SecondaryModal: FC = memo(() => {
+type Props = {
+  title: string;
+  children: ReactNode;
+};
+
+export const SecondaryModal: FC<Props> = memo((props) => {
+  const { title, children } = props;
   const [isOpen, setIsOpen] = useState(true);
 
-  const onCloseModal = () => setIsOpen(false);
+  const onCloseModal = useCallback(() => setIsOpen(false), []);
 
   Modal.setAppElement("body");
   return (
     <Modal isOpen={isOpen} onRequestClose={onCloseModal} style={customStyles}>
       <div>
         <header className="h-12 px-4 py-2 bg-[#3CC1EB] text-white text-2xl font-black">
-          Moderate Roulletへようこそ !
+          {title}
         </header>
-        <div className="flex items-center p-4 text-gray-700 font-semibold">
-          <ul>
-            <li className="mb-2">日常のちょっとした迷いをルーレットで手軽に解決できるサービスです</li>
-            <li className="mb-2">使い方はとてもシンプルで、ユーザー登録も必要ありません</li>
-            <li className="mb-2">PCでもスマホでもご使用いただけます</li>
-          </ul>
-        </div>
+        {children}
         <footer className="flex justify-end absolute bottom-0 right-0 items-center py-4 px-6">
           <button
             className="px-4 bg-[#EDF2F7] text-[#3CC1EB] leading-10 rounded-md hover:bg-[#E2E8F0] active:bg-[#CBD5E0]"
