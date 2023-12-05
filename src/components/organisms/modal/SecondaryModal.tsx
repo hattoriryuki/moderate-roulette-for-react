@@ -1,6 +1,8 @@
 import { FC, ReactNode, memo, useCallback, useEffect, useState } from "react";
 import Modal from "react-modal";
 
+import { BreakPoint, useMediaQuery } from "../../../hooks/useMediaQuery";
+
 const customStyles = {
   content: {
     top: "50%",
@@ -22,8 +24,13 @@ type Props = {
 export const SecondaryModal: FC<Props> = memo((props) => {
   const { title, children } = props;
   const [isOpen, setIsOpen] = useState(false);
+  const isMobile = useMediaQuery(BreakPoint.mobile);
 
   useEffect(() => {
+    if (isMobile.match) {
+      customStyles.content.width = "100%";
+      customStyles.content.height = "35%";
+    }
     window.onload = () => setIsOpen(true);
   }, []);
 
