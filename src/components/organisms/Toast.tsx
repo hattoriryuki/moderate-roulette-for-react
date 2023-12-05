@@ -54,7 +54,7 @@ export const Toast: FC<Props> = memo((props) => {
   }, [flag]);
 
   return (
-    <div className="absolute top-2 left-1/2 translate-x-[-50%]">
+    <div className={`absolute left-1/2 translate-x-[-50%] ${flag ? "top-2" : "-top-20"}`}>
       <div
         className={`flex items-center w-[360px] md:max-w-[500px] h-12 py-4 px-2 rounded-lg shadow transition-transform duration-500 ${
           flag || "-translate-y-[100vh]"
