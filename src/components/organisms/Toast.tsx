@@ -56,7 +56,7 @@ export const Toast: FC<Props> = memo((props) => {
   return (
     <div className="absolute top-2 left-1/2 translate-x-[-50%]">
       <div
-        className={`flex items-center max-w-[500px] h-12 py-4 px-2 rounded-lg shadow transition-transform duration-500 ${
+        className={`flex items-center w-[360px] md:max-w-[500px] h-12 py-4 px-2 rounded-lg shadow transition-transform duration-500 ${
           flag || "-translate-y-[100vh]"
         } bg-${toastStatus.color}-600`}
       >
