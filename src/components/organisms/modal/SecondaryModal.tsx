@@ -1,4 +1,4 @@
-import { FC, ReactNode, memo, useCallback, useState } from "react";
+import { FC, ReactNode, memo, useCallback, useEffect, useState } from "react";
 import Modal from "react-modal";
 
 const customStyles = {
@@ -6,7 +6,7 @@ const customStyles = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "50%",
+    width: "40%",
     height: "30%",
     borderRadius: "8px",
     padding: 0,
@@ -21,7 +21,11 @@ type Props = {
 
 export const SecondaryModal: FC<Props> = memo((props) => {
   const { title, children } = props;
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    window.onload = () => setIsOpen(true);
+  }, []);
 
   const onCloseModal = useCallback(() => setIsOpen(false), []);
 
