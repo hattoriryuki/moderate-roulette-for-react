@@ -22,6 +22,7 @@ import { RoulletResultModal } from "../organisms/modal/RoulletResultModal";
 import { useRunRoullet } from "../../hooks/useControlRoullet";
 import { useAddItem } from "../../hooks/useAddItem";
 import { PrimaryInput } from "../atoms/PrimaryInput";
+import { SecondaryModal } from "../organisms/modal/SecondaryModal";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
@@ -81,6 +82,7 @@ export const Top: FC = memo(() => {
   return (
     <>
       <RoulletResultModal flag={modalIsOpen} result={resultRef} title={titleText} />
+      <SecondaryModal />
       <div className="flex flex-col md:flex-row h-[700px] md:h-[calc(100vh_-_120px)] md:justify-around items-center overflow-y-scroll">
         <Canvas />
         <div className="flex flex-col h-full md:h-[500px] w-[90%] md:w-2/5">
