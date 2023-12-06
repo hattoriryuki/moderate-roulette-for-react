@@ -1,4 +1,4 @@
-import { FC, memo, useState } from "react";
+import { FC, memo, useCallback, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
@@ -9,12 +9,13 @@ import { HamburgerMenu } from "../HamburgerMenu";
 export const Header: FC = memo(() => {
   const [openMenu, setOpenMenu] = useState(false);
 
-  const onClickMenu = () => setOpenMenu(!openMenu);
+  const onClickMenu = useCallback(() => setOpenMenu(!openMenu), [openMenu]);
+  const onClickLogo = useCallback(() => window.location.reload(), []);
 
   return (
     <header className="bg-stone-300 h-12 md:h-16">
       <div className="flex justify-between items-center h-full">
-        <div className="flex items-center h-full">
+        <div className="flex items-center h-full" onClick={onClickLogo}>
           <img
             src={logoImg}
             alt="Application logo image"
