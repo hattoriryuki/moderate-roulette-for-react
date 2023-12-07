@@ -18,10 +18,12 @@ import { useDrawCanvas } from "../../hooks/useDrawCanvas";
 import { RoulletItem } from "../molucules/RoulletItem";
 import { Item } from "../../types/item";
 import { Canvas } from "../atoms/Canvas";
-import { PrimaryModal } from "../organisms/PrimaryModal";
+import { RoulletResultModal } from "../organisms/modal/RoulletResultModal";
 import { useRunRoullet } from "../../hooks/useControlRoullet";
 import { useAddItem } from "../../hooks/useAddItem";
 import { PrimaryInput } from "../atoms/PrimaryInput";
+import { SecondaryModal } from "../organisms/modal/SecondaryModal";
+import { InitialContent } from "../molucules/InitialContent";
 
 export const Top: FC = memo(() => {
   const [canvasObject, setCanvasObject] = useState<HTMLCanvasElement | null>(
@@ -80,7 +82,14 @@ export const Top: FC = memo(() => {
 
   return (
     <>
-      <PrimaryModal flag={modalIsOpen} result={resultRef} title={titleText} />
+      <RoulletResultModal
+        flag={modalIsOpen}
+        result={resultRef}
+        title={titleText}
+      />
+      <SecondaryModal title="Moderate Roulletへようこそ !">
+        <InitialContent />
+      </SecondaryModal>
       <div className="flex flex-col md:flex-row h-[700px] md:h-[calc(100vh_-_120px)] md:justify-around items-center overflow-y-scroll">
         <Canvas />
         <div className="flex flex-col h-full md:h-[500px] w-[90%] md:w-2/5">

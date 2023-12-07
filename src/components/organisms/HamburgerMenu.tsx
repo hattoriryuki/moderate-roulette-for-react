@@ -7,14 +7,14 @@ import {
   useState,
 } from "react";
 
-import { SecondaryModal } from "./SecondaryModal";
+import { PrimaryModal } from "./modal/PrimaryModal";
 import { TermsContent } from "../molucules/TermsContent";
 import { PrivacyContent } from "../molucules/PrivacyContent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { PrimaryLink } from "../atoms/PrimaryLink";
 import { ContactLink } from "../atoms/ContactLink";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons"
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
 type Props = {
   isOpen: boolean;
@@ -55,7 +55,7 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
 
   return (
     <>
-      <SecondaryModal
+      <PrimaryModal
         title="利用規約"
         flag={termsIsOpen}
         onClose={() => {
@@ -65,8 +65,8 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
         height="80%"
       >
         <TermsContent />
-      </SecondaryModal>
-      <SecondaryModal
+      </PrimaryModal>
+      <PrimaryModal
         title="プライバシーポリシー"
         flag={privacyIsOpen}
         onClose={() => {
@@ -76,7 +76,7 @@ export const HamburgerMenu: FC<Props> = memo((props) => {
         height="60%"
       >
         <PrivacyContent />
-      </SecondaryModal>
+      </PrimaryModal>
       <nav
         className={`absolute right-5 bg-white divide-y border w-56 rounded-md py-2 shadow-md ${
           isOpen || "hidden"

@@ -3,7 +3,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "react-modal";
 
-import { BreakPoint, useMediaQuery } from "../../hooks/useMediaQuery";
+import { BreakPoint, useMediaQuery } from "../../../hooks/useMediaQuery";
 
 const customStyles = {
   content: {
@@ -26,7 +26,7 @@ type Props = {
   height: string;
 };
 
-export const SecondaryModal: FC<Props> = memo((props) => {
+export const PrimaryModal: FC<Props> = memo((props) => {
   const { children, title, flag, onClose, height } = props;
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery(BreakPoint.mobile);
