@@ -18,7 +18,7 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
 
   useEffect(() => {
     if (isDesktop) radius = 220;
-  }, []);
+  }, [canvas]);
 
   useEffect(() => {
     if (!ctx) return;
@@ -29,7 +29,7 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
     (props: Props) => {
       const { angleCounter, items } = props;
       if (items.length < 1) {
-        drawInitialRoullet({ radius: radius });
+        drawInitialRoullet({ radius });
       } else {
         anglePart = 360 / items.length;
         let angle = 0;
