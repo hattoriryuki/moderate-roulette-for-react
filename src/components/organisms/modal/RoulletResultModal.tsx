@@ -12,7 +12,7 @@ import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import Modal from "react-modal";
 
 import { Item } from "../../../types/item";
-import { BreakPoint, useMediaQuery } from "../../../hooks/useMediaQuery";
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
 type Props = {
   flag: boolean;
@@ -25,8 +25,8 @@ const customStyles = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "30%",
-    height: "30%",
+    width: "90%",
+    height: "25%",
     padding: 0,
     boxShadow: "2px 8px 21px -2px #777777",
   },
@@ -35,7 +35,7 @@ const customStyles = {
 export const RoulletResultModal: FC<Props> = memo((props) => {
   const { flag, result, title } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const isMobile = useMediaQuery(BreakPoint.mobile);
+  const isDesktop = useMediaQuery();
   const shareURL = `http://twitter.com/share?url=https://moderate-roullet-for-react.web.app/
   &text=${title ? title + "に" : "今回"}選ばれたのは、「 ${
     result.current?.text
@@ -43,9 +43,9 @@ export const RoulletResultModal: FC<Props> = memo((props) => {
   &hashtags=ModerateRoullet`;
 
   useEffect(() => {
-    if (isMobile.match) {
-      customStyles.content.width = "90%";
-      customStyles.content.height = "25%";
+    if (isDesktop) {
+      customStyles.content.width = "30%";
+      customStyles.content.height = "30%";
     }
   }, []);
 
