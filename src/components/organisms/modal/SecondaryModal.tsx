@@ -1,15 +1,15 @@
 import { FC, ReactNode, memo, useCallback, useEffect, useState } from "react";
 import Modal from "react-modal";
 
-import { BreakPoint, useMediaQuery } from "../../../hooks/useMediaQuery";
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
 const customStyles = {
   content: {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "40%",
-    height: "30%",
+    width: "100%",
+    height: "35%",
     borderRadius: "8px",
     padding: 0,
     boxShadow: "2px 8px 21px -2px #777777",
@@ -24,15 +24,15 @@ type Props = {
 export const SecondaryModal: FC<Props> = memo((props) => {
   const { title, children } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const isMobile = useMediaQuery(BreakPoint.mobile);
+  const isDesktop = useMediaQuery();
 
   useEffect(() => {
-    if (isMobile.match) {
-      customStyles.content.width = "100%";
-      customStyles.content.height = "35%";
+    if (isDesktop) {
+      customStyles.content.width = "40%";
     }
-    window.onload = () => setIsOpen(true);
   }, []);
+
+  window.onload = () => setIsOpen(true);
 
   const onCloseModal = useCallback(() => setIsOpen(false), []);
 

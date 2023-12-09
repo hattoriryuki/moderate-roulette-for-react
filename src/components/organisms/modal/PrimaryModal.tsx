@@ -3,14 +3,14 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "react-modal";
 
-import { BreakPoint, useMediaQuery } from "../../../hooks/useMediaQuery";
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
 const customStyles = {
   content: {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "60%",
+    width: "100%",
     height: "80%",
     borderRadius: "8px",
     padding: 0,
@@ -29,11 +29,11 @@ type Props = {
 export const PrimaryModal: FC<Props> = memo((props) => {
   const { children, title, flag, onClose, height } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const isMobile = useMediaQuery(BreakPoint.mobile);
+  const isDesktop = useMediaQuery();
 
   useEffect(() => {
-    if (isMobile.match) {
-      customStyles.content.width = "100%";
+    if (isDesktop) {
+      customStyles.content.width = "60%";
     }
   }, []);
 

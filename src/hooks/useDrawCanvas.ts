@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 
 import { Item } from "../types/item";
 import { useDrawInitialRoullet } from "./useDrawInitialRoullet";
-import { BreakPoint, useMediaQuery } from "./useMediaQuery";
+import { useMediaQuery } from "./useMediaQuery";
 
 type Props = {
   angleCounter: number;
@@ -12,13 +12,13 @@ type Props = {
 export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
   const ctx = canvas && canvas.getContext("2d");
   const { drawInitialRoullet } = useDrawInitialRoullet(canvas);
-  const isMobile = useMediaQuery(BreakPoint.mobile);
-  let radius = 220;
+  const isDesktop = useMediaQuery();
+  let radius = 150;
   let anglePart = 0;
 
   useEffect(() => {
-    if (isMobile.match) radius = 150;
-  }, []);
+    if (isDesktop) radius = 220;
+  }, [canvas]);
 
   useEffect(() => {
     if (!ctx) return;
@@ -29,7 +29,7 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
     (props: Props) => {
       const { angleCounter, items } = props;
       if (items.length < 1) {
-        drawInitialRoullet({ radius: radius });
+        drawInitialRoullet({ radius });
       } else {
         anglePart = 360 / items.length;
         let angle = 0;
