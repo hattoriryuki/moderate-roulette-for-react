@@ -87,7 +87,7 @@ export const RoulletItem: FC<Props> = memo((props) => {
               />
               {index === editTarget ? (
                 <form
-                  className="w-[90%]"
+                  className="w-[80%] md:w-[90%]"
                   onSubmit={(e) => {
                     onSubmit(e, index);
                   }}

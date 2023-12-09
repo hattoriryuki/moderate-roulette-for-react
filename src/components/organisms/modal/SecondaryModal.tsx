@@ -29,10 +29,10 @@ export const SecondaryModal: FC<Props> = memo((props) => {
   useEffect(() => {
     if (isDesktop) {
       customStyles.content.width = "40%";
-      customStyles.content.height = "30%";
     }
-    window.onload = () => setIsOpen(true);
-  }, [isDesktop]);
+  }, []);
+
+  window.onload = () => setIsOpen(true);
 
   const onCloseModal = useCallback(() => setIsOpen(false), []);
 
