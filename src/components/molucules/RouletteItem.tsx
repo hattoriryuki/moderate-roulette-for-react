@@ -21,7 +21,7 @@ type Props = {
   canvas: HTMLCanvasElement | null;
 };
 
-export const RoulletItem: FC<Props> = memo((props) => {
+export const RouletteItem: FC<Props> = memo((props) => {
   const { items, setItems, canvas } = props;
   const [editTarget, setEditTarget] = useState<number | null>();
   const [editedText, setEditedText] = useState("");

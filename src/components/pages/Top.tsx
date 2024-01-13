@@ -15,7 +15,7 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 
 import { useDrawCanvas } from "../../hooks/useDrawCanvas";
-import { RoulletItem } from "../molucules/RoulletItem";
+import { RouletteItem } from "../molucules/RouletteItem";
 import { Item } from "../../types/item";
 import { Canvas } from "../atoms/Canvas";
 import { RoulletResultModal } from "../organisms/modal/RoulletResultModal";
@@ -137,7 +137,7 @@ export const Top: FC = memo(() => {
             </div>
           </div>
           <div className="border border-[#4A5568] basis-[80%] p-5 mb-10 overflow-y-scroll max-h-[265px] md:max-h-none">
-            <RoulletItem
+            <RouletteItem
               items={items}
               setItems={setItems}
               canvas={canvasObject}
