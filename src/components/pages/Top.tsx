@@ -15,11 +15,11 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 
 import { useDrawCanvas } from "../../hooks/useDrawCanvas";
-import { RoulletItem } from "../molucules/RoulletItem";
+import { RouletteItem } from "../molucules/RouletteItem";
 import { Item } from "../../types/item";
 import { Canvas } from "../atoms/Canvas";
-import { RoulletResultModal } from "../organisms/modal/RoulletResultModal";
-import { useRunRoullet } from "../../hooks/useControlRoullet";
+import { RouletteResultModal } from "../organisms/modal/RouletteResultModal";
+import { useControlRoulette } from "../../hooks/useControlRoulette";
 import { useAddItem } from "../../hooks/useAddItem";
 import { PrimaryInput } from "../atoms/PrimaryInput";
 import { SecondaryModal } from "../organisms/modal/SecondaryModal";
@@ -35,9 +35,9 @@ export const Top: FC = memo(() => {
   const [titleText, setTitleText] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const { drawRoullet, drawTriangle } = useDrawCanvas(canvasObject);
-  const { addItem } = useAddItem({ items, setItems, drawRoullet });
-  const { runRoullet, stopRoullet, resultRef } = useRunRoullet({
+  const { drawRoulette, drawTriangle } = useDrawCanvas(canvasObject);
+  const { addItem } = useAddItem({ items, setItems, drawRoulette });
+  const { runRoulette, stopRoulette, resultRef } = useControlRoulette({
     canvas: canvasObject,
     items,
     setModalIsOpen,
@@ -45,19 +45,19 @@ export const Top: FC = memo(() => {
 
   useEffect(() => {
     setCanvasObject(document.querySelector("canvas"));
-    drawRoullet({ angleCounter: 0, items });
+    drawRoulette({ angleCounter: 0, items });
     drawTriangle();
   }, [canvasObject]);
 
   const onClickStart = useCallback(() => {
     setIsRunnig(true);
-    runRoullet();
-  }, [runRoullet]);
+    runRoulette();
+  }, [runRoulette]);
 
   const onClickStop = useCallback(() => {
-    stopRoullet();
+    stopRoulette();
     setIsRunnig(false);
-  }, [stopRoullet]);
+  }, [stopRoulette]);
 
   const onClickAdd = useCallback(() => {
     addItem(itemText);
@@ -82,12 +82,12 @@ export const Top: FC = memo(() => {
 
   return (
     <>
-      <RoulletResultModal
+      <RouletteResultModal
         flag={modalIsOpen}
         result={resultRef}
         title={titleText}
       />
-      <SecondaryModal title="Moderate Roulletへようこそ !">
+      <SecondaryModal title="Moderate Rouletteへようこそ !">
         <InitialContent />
       </SecondaryModal>
       <div className="flex flex-col md:flex-row h-[700px] md:h-[calc(100vh_-_120px)] md:justify-around items-center overflow-y-scroll">
@@ -114,7 +114,7 @@ export const Top: FC = memo(() => {
               <button
                 className="text-gray-600 ml-2"
                 onClick={() => {
-                  drawRoullet({ angleCounter: 0, items });
+                  drawRoulette({ angleCounter: 0, items });
                 }}
               >
                 <FontAwesomeIcon icon={faArrowRotateRight} />
@@ -137,7 +137,7 @@ export const Top: FC = memo(() => {
             </div>
           </div>
           <div className="border border-[#4A5568] basis-[80%] p-5 mb-10 overflow-y-scroll max-h-[265px] md:max-h-none">
-            <RoulletItem
+            <RouletteItem
               items={items}
               setItems={setItems}
               canvas={canvasObject}

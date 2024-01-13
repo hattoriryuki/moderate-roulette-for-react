@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 
 import { Item } from "../types/item";
-import { useDrawInitialRoullet } from "./useDrawInitialRoullet";
+import { useDrawInitialRoulette } from "./useDrawInitialRoulette";
 import { useMediaQuery } from "./useMediaQuery";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 
 export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
   const ctx = canvas && canvas.getContext("2d");
-  const { drawInitialRoullet } = useDrawInitialRoullet(canvas);
+  const { drawInitialRoulette } = useDrawInitialRoulette(canvas);
   const isDesktop = useMediaQuery();
   let radius = 150;
   let anglePart = 0;
@@ -25,11 +25,11 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
     ctx.translate(canvas.width / 6, canvas.height / 6);
   }, [canvas]);
 
-  const drawRoullet = useCallback(
+  const drawRoulette = useCallback(
     (props: Props) => {
       const { angleCounter, items } = props;
       if (items.length < 1) {
-        drawInitialRoullet({ radius });
+        drawInitialRoulette({ radius });
       } else {
         anglePart = 360 / items.length;
         let angle = 0;
@@ -63,5 +63,5 @@ export const useDrawCanvas = (canvas: HTMLCanvasElement | null) => {
     ctx.fill();
   }, [canvas]);
 
-  return { drawRoullet, drawTriangle, anglePart };
+  return { drawRoulette, drawTriangle, anglePart };
 };

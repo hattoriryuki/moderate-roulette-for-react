@@ -32,7 +32,7 @@ const customStyles = {
   },
 };
 
-export const RoulletResultModal: FC<Props> = memo((props) => {
+export const RouletteResultModal: FC<Props> = memo((props) => {
   const { flag, result, title } = props;
   const [isOpen, setIsOpen] = useState(false);
   const isDesktop = useMediaQuery();
@@ -40,7 +40,7 @@ export const RoulletResultModal: FC<Props> = memo((props) => {
   &text=${title ? title + "に" : "今回"}選ばれたのは、「 ${
     result.current?.text
   } 」でした！
-  &hashtags=ModerateRoullet`;
+  &hashtags=ModerateRoulette`;
 
   useEffect(() => {
     if (isDesktop) {

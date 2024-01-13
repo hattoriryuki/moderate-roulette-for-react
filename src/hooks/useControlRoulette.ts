@@ -10,15 +10,15 @@ type Props = {
   setModalIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export const useRunRoullet = (props: Props) => {
+export const useControlRoulette = (props: Props) => {
   const { canvas, items, setModalIsOpen } = props;
-  const { drawRoullet } = useDrawCanvas(canvas);
+  const { drawRoulette } = useDrawCanvas(canvas);
   const { getJudgement, resultRef } = useGetJudgement();
   const intervalRef = useRef<NodeJS.Timer>();
   const currentAngleRef = useRef(0);
   const stopFlagRef = useRef(false);
 
-  const runRoullet = useCallback(() => {
+  const runRoulette = useCallback(() => {
     let angleCounter = 0;
     let count = 0;
 
@@ -28,12 +28,12 @@ export const useRunRoullet = (props: Props) => {
         count++;
         angleCounter -= count / 10;
       }
-      drawRoullet({ angleCounter, items });
+      drawRoulette({ angleCounter, items });
       currentAngleRef.current = angleCounter % 360;
     }, 10);
-  }, [drawRoullet, items]);
+  }, [drawRoulette, items]);
 
-  const stopRoullet = useCallback(() => {
+  const stopRoulette = useCallback(() => {
     stopFlagRef.current = true;
     setTimeout(() => {
       if (!intervalRef) return;
@@ -51,5 +51,5 @@ export const useRunRoullet = (props: Props) => {
     }, 2000);
   }, [items]);
 
-  return { runRoullet, stopRoullet, resultRef };
+  return { runRoulette, stopRoulette, resultRef };
 };

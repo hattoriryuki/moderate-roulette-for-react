@@ -12,11 +12,11 @@ type Argument = {
 type Props = {
   items: Item[];
   setItems: Dispatch<SetStateAction<Item[]>>;
-  drawRoullet: (props: Argument) => void;
+  drawRoulette: (props: Argument) => void;
 };
 
 export const useAddItem = (props: Props) => {
-  const { items, setItems, drawRoullet } = props;
+  const { items, setItems, drawRoulette } = props;
   const { getRandomColor, itemColor } = useGetRandomColor();
   const showToast = useToast();
 
@@ -29,9 +29,9 @@ export const useAddItem = (props: Props) => {
       getRandomColor();
       const newItems = [...items, { text: itemText, color: itemColor }];
       setItems(newItems);
-      drawRoullet({ angleCounter: 0, items: newItems });
+      drawRoulette({ angleCounter: 0, items: newItems });
     },
-    [items, drawRoullet]
+    [items, drawRoulette]
   );
 
   return { addItem };
