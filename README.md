@@ -1,4 +1,4 @@
-# moderate-roullet
+# Moderate-Roulette
 
 ## サービス概要
 

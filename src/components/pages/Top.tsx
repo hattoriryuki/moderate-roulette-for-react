@@ -87,7 +87,7 @@ export const Top: FC = memo(() => {
         result={resultRef}
         title={titleText}
       />
-      <SecondaryModal title="Moderate Roulletへようこそ !">
+      <SecondaryModal title="Moderate Rouletteへようこそ !">
         <InitialContent />
       </SecondaryModal>
       <div className="flex flex-col md:flex-row h-[700px] md:h-[calc(100vh_-_120px)] md:justify-around items-center overflow-y-scroll">
