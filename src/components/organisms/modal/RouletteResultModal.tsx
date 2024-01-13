@@ -32,7 +32,7 @@ const customStyles = {
   },
 };
 
-export const RoulletResultModal: FC<Props> = memo((props) => {
+export const RouletteResultModal: FC<Props> = memo((props) => {
   const { flag, result, title } = props;
   const [isOpen, setIsOpen] = useState(false);
   const isDesktop = useMediaQuery();

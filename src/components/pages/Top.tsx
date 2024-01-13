@@ -18,7 +18,7 @@ import { useDrawCanvas } from "../../hooks/useDrawCanvas";
 import { RouletteItem } from "../molucules/RouletteItem";
 import { Item } from "../../types/item";
 import { Canvas } from "../atoms/Canvas";
-import { RoulletResultModal } from "../organisms/modal/RoulletResultModal";
+import { RouletteResultModal } from "../organisms/modal/RouletteResultModal";
 import { useRunRoullet } from "../../hooks/useControlRoullet";
 import { useAddItem } from "../../hooks/useAddItem";
 import { PrimaryInput } from "../atoms/PrimaryInput";
@@ -82,7 +82,7 @@ export const Top: FC = memo(() => {
 
   return (
     <>
-      <RoulletResultModal
+      <RouletteResultModal
         flag={modalIsOpen}
         result={resultRef}
         title={titleText}
