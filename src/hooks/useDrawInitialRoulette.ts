@@ -4,7 +4,7 @@ type Props = {
   radius: number;
 };
 
-export const useDrawInitialRoullet = (canvas: HTMLCanvasElement | null) => {
+export const useDrawInitialRoulette = (canvas: HTMLCanvasElement | null) => {
   const ctx = canvas && canvas.getContext("2d");
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export const useDrawInitialRoullet = (canvas: HTMLCanvasElement | null) => {
     ctx.translate(canvas.width / 2, canvas.height / 2);
   }, []);
 
-  const drawInitialRoullet = useCallback(
+  const drawInitialRoulette = useCallback(
     (props: Props) => {
       const { radius } = props;
       if (!ctx) return;
@@ -33,5 +33,5 @@ export const useDrawInitialRoullet = (canvas: HTMLCanvasElement | null) => {
     [canvas]
   );
 
-  return { drawInitialRoullet };
+  return { drawInitialRoulette };
 };

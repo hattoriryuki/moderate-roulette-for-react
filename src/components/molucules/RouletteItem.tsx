@@ -25,7 +25,7 @@ export const RouletteItem: FC<Props> = memo((props) => {
   const { items, setItems, canvas } = props;
   const [editTarget, setEditTarget] = useState<number | null>();
   const [editedText, setEditedText] = useState("");
-  const { drawRoullet, drawTriangle } = useDrawCanvas(canvas);
+  const { drawRoulette, drawTriangle } = useDrawCanvas(canvas);
   const showToast = useToast();
 
   const onClickEdit = useCallback((text: string, index: number) => {
@@ -68,7 +68,7 @@ export const RouletteItem: FC<Props> = memo((props) => {
       const new_items = [...items];
       new_items.splice(index, 1);
       setItems(new_items);
-      drawRoullet({ angleCounter: 0, items: new_items });
+      drawRoulette({ angleCounter: 0, items: new_items });
       drawTriangle();
     },
     [items]
